@@ -5,301 +5,248 @@
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="./node_modules/gsap/dist/gsap.min.js"></script>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: #000000;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
-          Arial, sans-serif;
-      }
-      #root {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* ---- Composer box ---- */
-      .box {
-        width: 1820px;
-        border: 2px solid #3b6bff;
-        border-radius: 26px;
-        background: #0a0a0a;
-        padding: 34px 38px 30px;
-      }
-
-      /* ---- Attachment chips ---- */
-      .attachments {
-        display: flex;
-        gap: 22px;
-        margin-bottom: 30px;
-      }
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 18px;
-        padding: 20px 30px;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.015);
-        color: #f1f1f1;
-        font-size: 30px;
-        font-weight: 500;
-      }
-      .chip svg {
-        width: 34px;
-        height: 34px;
-        flex: none;
-      }
-
-      /* ---- Prompt text ---- */
-      .prompt-text {
-        font-size: 66px;
-        line-height: 1.32;
-        font-weight: 500;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1920px; height: 1080px; overflow: hidden; background: #000000;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #ffffff;
-        letter-spacing: -0.5px;
-        white-space: pre-wrap;
-        min-height: 174px;
-        margin-bottom: 30px;
       }
-      .caret {
-        display: inline-block;
-        width: 3px;
-        height: 0.92em;
-        background: #ffffff;
-        vertical-align: -0.1em;
-        margin-left: 4px;
-        animation: blink 1.06s steps(1, end) infinite;
+      #root { position: relative; }
+
+      /* ---------- Sidebar ---------- */
+      .sidebar {
+        position: absolute; left: 0; top: 0; width: 332px; height: 1080px;
+        border-right: 1px solid rgba(255, 255, 255, 0.09);
+        padding: 46px 34px;
       }
-      @keyframes blink {
-        0%,
-        50% {
-          opacity: 1;
-        }
-        50.01%,
-        100% {
-          opacity: 0;
-        }
+      .logo {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 46px; font-weight: 700; letter-spacing: 1px; margin-bottom: 66px;
+      }
+      .nav-item {
+        display: flex; align-items: center; gap: 22px;
+        font-size: 30px; color: #eaeaea; margin-bottom: 30px;
+      }
+      .nav-item svg { width: 30px; height: 30px; flex: none; }
+      .nav-label {
+        font-size: 21px; letter-spacing: 2px; color: #6a6a6a;
+        margin: 40px 0 26px;
+      }
+      .recent {
+        font-size: 27px; color: #c9c9c9; margin-bottom: 28px;
+      }
+      .viewall { display: flex; align-items: center; gap: 10px; font-size: 27px; color: #eaeaea; margin-top: 8px; }
+      .viewall svg { width: 20px; height: 20px; }
+      .avatar {
+        position: absolute; left: 34px; bottom: 40px;
+        width: 56px; height: 56px; border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.2);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 24px; color: #cfcfcf;
       }
 
-      /* ---- Toolbar ---- */
-      .toolbar {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+      /* ---------- Main ---------- */
+      .main { position: absolute; left: 332px; top: 0; right: 0; bottom: 0; padding: 168px 110px 0; }
+      h1 { font-size: 52px; font-weight: 500; letter-spacing: -0.5px; margin-bottom: 56px; }
+
+      .card {
+        position: relative;
+        display: flex; align-items: center; gap: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        padding: 40px 48px;
+        margin-bottom: 34px;
+        background: rgba(255, 255, 255, 0.012);
       }
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 14px;
-        height: 72px;
-        padding: 0 28px;
-        border-radius: 16px;
+      .tile {
+        width: 124px; height: 124px; flex: none;
+        border-radius: 18px;
         border: 1px solid rgba(255, 255, 255, 0.14);
-        color: #f2f2f2;
-        font-size: 30px;
-        font-weight: 500;
-        white-space: nowrap;
+        background: rgba(255, 255, 255, 0.03);
+        display: flex; align-items: center; justify-content: center;
       }
-      .pill svg {
-        width: 30px;
-        height: 30px;
-        flex: none;
-      }
-      .icon-btn {
-        width: 72px;
-        padding: 0;
-        justify-content: center;
-        font-size: 40px;
-        font-weight: 300;
-      }
-      .cm-brain {
-        background: #1a72ff;
-        border-color: #1a72ff;
-        color: #ffffff;
-        font-weight: 600;
-      }
-      .cm-brain .x {
-        opacity: 0.85;
-        font-size: 30px;
-        margin-left: 6px;
-      }
-      .chev {
-        font-size: 22px;
-        opacity: 0.7;
-      }
-      .spacer {
-        margin-left: auto;
-      }
-      .send {
-        width: 78px;
-        height: 78px;
-        border-radius: 50%;
-        background: #ff5a1f;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: none;
-      }
-      .send svg {
-        width: 38px;
-        height: 38px;
-      }
+      .tile svg { width: 60px; height: 60px; }
+      .card-title { font-size: 46px; font-weight: 500; margin-bottom: 12px; }
+      .card-sub { font-size: 30px; color: #8d8d8d; }
 
-      /* ---- Cursor ---- */
+      /* ---------- Composer ---------- */
+      .composer {
+        position: absolute; left: 110px; right: 110px; bottom: 70px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px; padding: 34px 40px;
+      }
+      .placeholder { font-size: 32px; color: #5c5c5c; margin-bottom: 40px; }
+      .crow { display: flex; align-items: center; gap: 26px; }
+      .divider { width: 1px; height: 40px; background: rgba(255,255,255,0.14); }
+      .citem { display: inline-flex; align-items: center; gap: 14px; font-size: 30px; color: #eaeaea; }
+      .citem svg { width: 30px; height: 30px; }
+      .strat {
+        border: 1px solid rgba(255,255,255,0.18); border-radius: 12px;
+        padding: 14px 22px; gap: 18px;
+      }
+      .strat .spark {
+        width: 40px; height: 40px; border-radius: 9px; background: #e8631a;
+        display: inline-flex; align-items: center; justify-content: center;
+      }
+      .strat .spark svg { width: 26px; height: 26px; }
+      .strat .x { color: #9a9a9a; font-size: 28px; margin-left: 4px; }
+      .model {
+        margin-left: auto;
+        border: 1px solid rgba(255,255,255,0.16); border-radius: 12px;
+        padding: 16px 24px; gap: 16px; font-size: 30px;
+      }
+      .model .chev { font-size: 22px; opacity: 0.7; }
+      .send-btn {
+        width: 66px; height: 66px; border-radius: 50%;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.16);
+        display: inline-flex; align-items: center; justify-content: center; flex: none;
+      }
+      .send-btn svg { width: 30px; height: 30px; }
+
+      /* ---------- Cursor ---------- */
       #cursor {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 42px;
-        height: 42px;
-        opacity: 0;
-        pointer-events: none;
+        position: absolute; left: 0; top: 0; width: 44px; height: 44px;
+        opacity: 0; pointer-events: none;
         filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
       }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="6"
-      data-width="1920"
-      data-height="1080"
-    >
-      <div class="box">
-        <!-- Attachments -->
-        <div class="attachments">
-          <div class="chip">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z"
-                stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
-              <path d="M14 3 V8 H19" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">WONDER</div>
+
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          New chat
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><path d="M15.5 8.5 L11 11 L8.5 15.5 L13 13 Z" fill="#fff"/></svg>
+          Discover
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M9 4 V20" stroke="#fff" stroke-width="1.6"/></svg>
+          Library
+        </div>
+        <div class="nav-item">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 4 H17 V20 L12 16 L7 20 Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          Bookmarks
+        </div>
+
+        <div class="nav-label">RECENT CHATS</div>
+        <div class="recent">Brand strategy critique</div>
+        <div class="recent">Campaign messaging</div>
+        <div class="recent">Website copy audit</div>
+        <div class="recent">Positioning ideas</div>
+        <div class="recent">Tagline exploration</div>
+        <div class="viewall">View all <svg viewBox="0 0 24 24" fill="none"><path d="M9 6 L15 12 L9 18" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="avatar">W</div>
+      </div>
+
+      <!-- Main -->
+      <div class="main">
+        <h1>Before I dig in, how do you want to work on this?</h1>
+
+        <div class="card" id="card1">
+          <div class="tile">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.5"/>
+              <path d="M15.5 8.5 L11 11 L8.5 15.5 L13 13 Z" fill="#fff"/>
             </svg>
-            pepsi-creative-brief.pdf
           </div>
-          <div class="chip">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z"
-                stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
-              <path d="M14 3 V8 H19" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
-            </svg>
-            Feel_It_First.pdf
-          </div>
-          <div class="chip">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z"
-                stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
-              <path d="M14 3 V8 H19" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
-            </svg>
-            Coachella_References.pdf
+          <div>
+            <div class="card-title">Guide me through it</div>
+            <div class="card-sub">I ask questions, you shape the thinking as we go.</div>
           </div>
         </div>
 
-        <!-- Prompt text -->
-        <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
+        <div class="card" id="card2">
+          <div class="tile" id="tile2">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20 L4 16 L15 5 L19 9 L8 20 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M13 7 L17 11" stroke="#fff" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="card-title">Take a first stab</div>
+            <div class="card-sub">I give you a revised brief to react to and refine.</div>
+          </div>
+        </div>
 
-        <!-- Toolbar -->
-        <div class="toolbar">
-          <div class="pill icon-btn">+</div>
-          <div class="pill">
-            <svg viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
-              <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
-              <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
-              <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
-            </svg>
-            Tools
-          </div>
-          <div class="pill cm-brain">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z"
-                stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" />
-              <path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z"
-                stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" />
-            </svg>
-            CM Brain <span class="x">&#10005;</span>
-          </div>
-
-          <div class="pill spacer">
-            Sonnet 4.6 <span class="chev">&#9662;</span>
-          </div>
-          <div class="send" id="send">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 19 V5" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" />
-              <path d="M6 11 L12 5 L18 11" stroke="#ffffff" stroke-width="2.4"
-                stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+        <!-- Composer -->
+        <div class="composer">
+          <div class="placeholder">Write a message...</div>
+          <div class="crow">
+            <div class="citem"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div class="divider"></div>
+            <div class="citem">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+                <rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+                <rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+                <rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+              </svg>
+              Tools
+            </div>
+            <div class="citem strat">
+              <span class="spark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.6 10.4 L22 12 L13.6 13.6 L12 22 L10.4 13.6 L2 12 L10.4 10.4 Z" fill="#fff"/></svg></span>
+              Creative Strategist <span class="x">&#10005;</span>
+            </div>
+            <div class="divider"></div>
+            <div class="citem model">Sonnet 4.6 <span class="chev">&#9662;</span></div>
+            <div class="send-btn"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
         </div>
       </div>
 
+      <!-- Cursor -->
       <svg id="cursor" viewBox="0 0 24 24" fill="none">
-        <path
-          d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z"
-          fill="#ffffff"
-          stroke="#0a0a0a"
-          stroke-width="1.1"
-          stroke-linejoin="round"
-        />
+        <path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/>
       </svg>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
+      const COBALT = "#1f5bff";
 
-      const fullText =
-        "Just got this brief. Adding a few thought starters and trends. Let’s get sharp.";
-      const typed = document.getElementById("typed");
-      const proxy = { n: 0 };
-
-      // 0.2s–3.6s: type the prompt one character at a time (timeline-driven, deterministic)
-      tl.to(
-        proxy,
-        {
-          n: fullText.length,
-          duration: 3.4,
-          ease: "none",
-          onUpdate() {
-            typed.textContent = fullText.slice(0, Math.round(proxy.n));
-          },
-        },
-        0.2
+      // 0.3s+ : the two card icons "build on" — scale/rotate in, staggered
+      tl.from(
+        ".card-icon",
+        { scale: 0, rotation: -45, opacity: 0, transformOrigin: "50% 50%",
+          duration: 0.7, ease: "back.out(1.7)", stagger: 0.28 },
+        0.3
       );
 
-      // Rest the cursor tip on the orange send button (fixed to the rendered layout)
+      // Cursor rest position over "Take a first stab" card (fixed to rendered layout)
       const cursor = document.getElementById("cursor");
-      gsap.set(cursor, { left: 1812, top: 742 });
+      gsap.set(cursor, { left: 1392, top: 588 });
 
-      // 3.7s–4.7s: cursor flies in from lower-right and lands on the send button
+      // 2.2s–3.3s : cursor flies in from lower-right and lands on card 2
       tl.fromTo(
         cursor,
-        { x: 70, y: 250, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 1.0, ease: "power3.out" },
-        3.7
+        { x: 360, y: 220, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
+        2.2
       );
 
-      // 4.75s: send button press + orange glow
-      tl.to("#send", { scale: 0.94, duration: 0.12, ease: "power2.in" }, 4.75);
-      tl.to("#send", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.87);
-      tl.to(
-        "#send",
-        {
-          boxShadow: "0 0 0 4px rgba(255,90,31,0.35), 0 0 38px rgba(255,90,31,0.6)",
-          duration: 0.22,
-          ease: "power2.out",
-        },
-        4.75
-      );
+      // 3.4s : select "Take a first stab" — cobalt-blue highlight
+      tl.to("#card2", { scale: 0.992, duration: 0.12, ease: "power2.in" }, 3.4);
+      tl.to("#card2", { scale: 1, duration: 0.22, ease: "power2.out" }, 3.52);
+      tl.to("#card2", {
+        borderColor: COBALT,
+        boxShadow: "0 0 0 2px " + COBALT + ", 0 0 42px rgba(31,91,255,0.45)",
+        duration: 0.3, ease: "power2.out",
+      }, 3.4);
+      tl.to("#tile2", {
+        borderColor: COBALT,
+        backgroundColor: "rgba(31,91,255,0.16)",
+        duration: 0.3, ease: "power2.out",
+      }, 3.46);
 
       window.__timelines["main"] = tl;
     </script>
