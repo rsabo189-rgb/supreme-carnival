@@ -7,111 +7,127 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden;
-        background: #0d0d0d; color: #fff;
+        width: 1920px; height: 1080px; overflow: hidden; background: #000000;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        color: #fff;
       }
-      #root { position: relative; }
+      #root { display: flex; align-items: center; justify-content: center; }
 
-      /* ---- Sidebar ---- */
-      .sidebar {
-        position: absolute; left: 0; top: 0; width: 150px; height: 1080px;
-        border-right: 1px solid rgba(255,255,255,0.08);
+      .box {
+        width: 1850px;
+        border: 2px solid #2f6bff;
+        border-radius: 26px;
+        background: #0a0a0a;
+        padding: 50px 52px 44px;
       }
-      .logo {
-        position: absolute; left: 22px; top: 34px; width: 108px;
-        mix-blend-mode: lighten;
+      .prompt-text {
+        font-size: 98px; font-weight: 500; letter-spacing: -1px; color: #fff;
+        white-space: pre; min-height: 120px; margin-bottom: 44px;
       }
-      .avatar {
-        position: absolute; left: 30px; bottom: 40px;
-        width: 52px; height: 52px; border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.22);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 22px; color: #cfcfcf;
+      .caret {
+        display: inline-block; width: 4px; height: 0.92em; background: #fff;
+        vertical-align: -0.1em; margin-left: 6px;
+        animation: blink 1.06s steps(1, end) infinite;
       }
+      @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
 
-      /* ---- Grid ---- */
-      .main {
-        position: absolute; left: 150px; top: 0; right: 0; bottom: 0;
-        padding: 30px 44px;
+      .toolbar { display: flex; align-items: center; gap: 22px; }
+      .pill {
+        display: inline-flex; align-items: center; gap: 16px;
+        height: 88px; padding: 0 32px; border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.16); color: #f2f2f2;
+        font-size: 36px; font-weight: 500; white-space: nowrap;
       }
-      .grid {
-        display: flex; flex-direction: column; gap: 20px;
-        transform-origin: 50% 50%;
+      .pill svg { width: 38px; height: 38px; flex: none; }
+      .icon-btn { width: 92px; padding: 0; justify-content: center; font-size: 52px; font-weight: 300; }
+      .cm {
+        background: #1f72ff; border-color: #1f72ff; color: #fff; font-weight: 600;
       }
-      .row { display: flex; gap: 27px; }
+      .cm .x { font-size: 34px; opacity: 0.9; margin-left: 8px; }
+      .chev { font-size: 26px; opacity: 0.7; }
+      .spacer { margin-left: auto; }
+      .send {
+        width: 96px; height: 96px; border-radius: 50%; background: #f0531a;
+        display: inline-flex; align-items: center; justify-content: center; flex: none;
+      }
+      .send svg { width: 46px; height: 46px; }
 
-      .cell { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-      .card {
-        width: 400px; border-radius: 16px; overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.12);
-        background:
-          radial-gradient(120% 100% at 50% 35%, #8e9094 0%, #6f7175 60%, #54565a 100%);
+      #cursor {
+        position: absolute; left: 0; top: 0; width: 46px; height: 46px;
+        opacity: 0; pointer-events: none;
+        filter: drop-shadow(0 3px 7px rgba(0,0,0,0.75));
       }
-      .card img { width: 100%; height: 100%; display: block; }
-      .h-head { height: 270px; }
-      .h-body { height: 300px; }
-      .head img, .master img { object-fit: cover; object-position: center 20%; }
-      .body img { object-fit: contain; }
-      .label { font-size: 28px; color: #f3f3f3; letter-spacing: 0.3px; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <div class="box">
+        <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
 
-      <div class="sidebar">
-        <img class="logo" src="./assets/wonder-logo.png" alt="WONDER" />
-        <div class="avatar">W</div>
-      </div>
-
-      <div class="main">
-        <div class="grid">
-
-          <!-- Row 1: Master -->
-          <div class="row">
-            <div class="cell master">
-              <div class="card h-head"><img src="./assets/master.png" /></div>
-              <div class="label">Master</div>
-            </div>
+        <div class="toolbar">
+          <div class="pill icon-btn">+</div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+              <rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+              <rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
+            </svg>
+            Tools
+          </div>
+          <div class="pill cm">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            CM Creative <span class="x">&#10005;</span>
           </div>
 
-          <!-- Row 2: Headshots -->
-          <div class="row">
-            <div class="cell head"><div class="card h-head"><img src="./assets/head-front.png" /></div><div class="label">Front</div></div>
-            <div class="cell head"><div class="card h-head"><img src="./assets/head-side.png" /></div><div class="label">Side</div></div>
-            <div class="cell head"><div class="card h-head"><img src="./assets/head-back.png" /></div><div class="label">Back</div></div>
-            <div class="cell head"><div class="card h-head"><img src="./assets/head-34.png" /></div><div class="label">&frac34;</div></div>
+          <div class="pill spacer">Sonnet 4.6 <span class="chev">&#9662;</span></div>
+          <div class="send" id="send">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 19 V5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-
-          <!-- Row 3: Full body -->
-          <div class="row">
-            <div class="cell body"><div class="card h-body"><img src="./assets/body-front.png" /></div><div class="label">Front</div></div>
-            <div class="cell body"><div class="card h-body"><img src="./assets/body-side.png" /></div><div class="label">Side</div></div>
-            <div class="cell body"><div class="card h-body"><img src="./assets/body-back.png" /></div><div class="label">Back</div></div>
-            <div class="cell body"><div class="card h-body"><img src="./assets/body-34.png" /></div><div class="label">&frac34;</div></div>
-          </div>
-
         </div>
       </div>
+
+      <svg id="cursor" viewBox="0 0 24 24" fill="none">
+        <path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#fff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/>
+      </svg>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Slow continuous push-in keeps the whole sheet alive
-      tl.fromTo(".grid", { scale: 1.0 }, { scale: 1.018, duration: 6, ease: "none" }, 0);
+      const fullText = "Make it presentable.";
+      const typed = document.getElementById("typed");
+      const proxy = { n: 0 };
 
-      // Cascade: each card builds on with a dynamic pop, in reading order
-      tl.from(
-        ".cell",
-        {
-          opacity: 0, scale: 0.82, y: 46, filter: "blur(10px)",
-          transformOrigin: "50% 60%",
-          duration: 0.72, ease: "back.out(1.5)", stagger: 0.2,
-        },
-        0.3
-      );
+      // 0.2s–3.3s: type the prompt one character at a time
+      tl.to(proxy, {
+        n: fullText.length, duration: 3.1, ease: "none",
+        onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
+      }, 0.2);
+
+      // Rest the cursor tip on the orange send button (fixed to rendered layout)
+      const cursor = document.getElementById("cursor");
+      gsap.set(cursor, { left: 1776, top: 628 });
+
+      // 3.5s–4.6s: cursor flies in from lower-right and lands on send
+      tl.fromTo(cursor,
+        { x: 90, y: 240, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 1.05, ease: "power3.out" }, 3.5);
+
+      // 4.65s: press + orange glow
+      tl.to("#send", { scale: 0.93, duration: 0.12, ease: "power2.in" }, 4.65);
+      tl.to("#send", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.77);
+      tl.to("#send", {
+        boxShadow: "0 0 0 5px rgba(240,83,26,0.32), 0 0 44px rgba(240,83,26,0.6)",
+        duration: 0.22, ease: "power2.out",
+      }, 4.65);
 
       window.__timelines["main"] = tl;
     </script>
