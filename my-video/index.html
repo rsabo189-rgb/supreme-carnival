@@ -12,11 +12,119 @@
       }
       html,
       body {
-        margin: 0;
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        background: #000;
+        background: #0a0a0a;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+          Arial, sans-serif;
+      }
+
+      #root {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ---- Prompt box ---- */
+      .box {
+        width: 1680px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.02);
+        overflow: hidden;
+      }
+
+      .editor {
+        min-height: 360px;
+        padding: 56px 64px 48px;
+      }
+
+      .prompt-text {
+        font-size: 70px;
+        line-height: 1.3;
+        font-weight: 500;
+        color: #ffffff;
+        letter-spacing: -0.5px;
+        white-space: pre-wrap;
+      }
+
+      .caret {
+        display: inline-block;
+        width: 3px;
+        height: 0.95em;
+        background: #ffffff;
+        vertical-align: -0.12em;
+        margin-left: 2px;
+        animation: blink 1.06s steps(1, end) infinite;
+      }
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        50.01%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* ---- Toolbar ---- */
+      .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 26px 32px 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        height: 64px;
+        padding: 0 26px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #f2f2f2;
+        font-size: 27px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .pill .val {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .pill .chev {
+        font-size: 20px;
+        opacity: 0.7;
+        margin-left: 2px;
+      }
+      .pill.plain {
+        border-color: transparent;
+      }
+
+      .generate {
+        margin-left: auto;
+        background: #3a5bff;
+        border: none;
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .generate .arrow {
+        font-size: 24px;
+      }
+
+      /* ---- Cursor ---- */
+      #cursor {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+        pointer-events: none;
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
       }
     </style>
   </head>
@@ -25,26 +133,92 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="10"
+      data-duration="6"
       data-width="1920"
       data-height="1080"
     >
-      
-      
-
-      <!--
-        Add your clips here. Example:
-        <div id="title" class="clip" data-start="0" data-duration="5" data-track-index="1"
-             style="font-size: 64px; color: #fff; padding: 40px">
-          Hello World
+      <div class="box">
+        <div class="editor">
+          <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
         </div>
-      -->
+
+        <div class="toolbar">
+          <div class="pill">+ Attach</div>
+          <div class="pill">
+            <span>&#9974; Aspect Ratio</span><span class="val">16:9</span
+            ><span class="chev">&#9662;</span>
+          </div>
+          <div class="pill">
+            <span>Length</span><span class="val">30s</span
+            ><span class="chev">&#9662;</span>
+          </div>
+          <div class="pill" id="improve">&#9998; Improve with AI</div>
+          <div class="pill plain">Start blank</div>
+          <div class="pill generate">Generate <span class="arrow">&#8250;</span></div>
+        </div>
+      </div>
+
+      <svg id="cursor" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z"
+          fill="#ffffff"
+          stroke="#0a0a0a"
+          stroke-width="1.1"
+          stroke-linejoin="round"
+        />
+      </svg>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      // Example: tl.from("#title", { opacity: 0, y: -50, duration: 1 }, 0);
+
+      const fullText =
+        "A Pepsi summer spot. Coachella, golden hour. The white ferris wheel in every shot.";
+      const typed = document.getElementById("typed");
+      const proxy = { n: 0 };
+
+      // 0.2s–3.5s: type the prompt one character at a time (deterministic, timeline-driven)
+      tl.to(
+        proxy,
+        {
+          n: fullText.length,
+          duration: 3.3,
+          ease: "none",
+          onUpdate() {
+            typed.textContent = fullText.slice(0, Math.round(proxy.n));
+          },
+        },
+        0.2
+      );
+
+      // Rest the cursor tip on the "Improve with AI" button (fixed to the rendered layout)
+      const cursor = document.getElementById("cursor");
+      gsap.set(cursor, { left: 948, top: 698 });
+
+      // 3.6s–4.7s: cursor flies in from lower-right and lands on "Improve with AI"
+      tl.fromTo(
+        cursor,
+        { x: 640, y: 250, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
+        3.6
+      );
+
+      // 4.75s: button press + glow
+      tl.to("#improve", { scale: 0.96, duration: 0.12, ease: "power2.in" }, 4.75);
+      tl.to("#improve", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.88);
+      tl.to(
+        "#improve",
+        {
+          borderColor: "rgba(150,170,255,0.95)",
+          boxShadow:
+            "0 0 0 2px rgba(120,140,255,0.85), 0 0 34px rgba(70,100,255,0.55)",
+          duration: 0.22,
+          ease: "power2.out",
+        },
+        4.75
+      );
+
       window.__timelines["main"] = tl;
     </script>
   </body>
