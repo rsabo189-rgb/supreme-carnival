@@ -7,256 +7,111 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #000000;
+        width: 1920px; height: 1080px; overflow: hidden;
+        background: #0d0d0d; color: #fff;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        color: #ffffff;
       }
       #root { position: relative; }
 
-      /* ---------- Sidebar ---------- */
+      /* ---- Sidebar ---- */
       .sidebar {
-        position: absolute; left: 0; top: 0; width: 332px; height: 1080px;
-        border-right: 1px solid rgba(255, 255, 255, 0.09);
-        padding: 46px 34px;
+        position: absolute; left: 0; top: 0; width: 150px; height: 1080px;
+        border-right: 1px solid rgba(255,255,255,0.08);
       }
       .logo {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 46px; font-weight: 700; letter-spacing: 1px; margin-bottom: 66px;
+        position: absolute; left: 22px; top: 34px; width: 108px;
+        mix-blend-mode: lighten;
       }
-      .nav-item {
-        display: flex; align-items: center; gap: 22px;
-        font-size: 30px; color: #eaeaea; margin-bottom: 30px;
-      }
-      .nav-item svg { width: 30px; height: 30px; flex: none; }
-      .nav-label {
-        font-size: 21px; letter-spacing: 2px; color: #6a6a6a;
-        margin: 40px 0 26px;
-      }
-      .recent {
-        font-size: 27px; color: #c9c9c9; margin-bottom: 28px;
-      }
-      .viewall { display: flex; align-items: center; gap: 10px; font-size: 27px; color: #eaeaea; margin-top: 8px; }
-      .viewall svg { width: 20px; height: 20px; }
       .avatar {
-        position: absolute; left: 34px; bottom: 40px;
-        width: 56px; height: 56px; border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.2);
+        position: absolute; left: 30px; bottom: 40px;
+        width: 52px; height: 52px; border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.22);
         display: flex; align-items: center; justify-content: center;
-        font-size: 24px; color: #cfcfcf;
+        font-size: 22px; color: #cfcfcf;
       }
 
-      /* ---------- Main ---------- */
-      .main { position: absolute; left: 332px; top: 0; right: 0; bottom: 0; padding: 168px 110px 0; }
-      h1 { font-size: 52px; font-weight: 500; letter-spacing: -0.5px; margin-bottom: 56px; }
+      /* ---- Grid ---- */
+      .main {
+        position: absolute; left: 150px; top: 0; right: 0; bottom: 0;
+        padding: 30px 44px;
+      }
+      .grid {
+        display: flex; flex-direction: column; gap: 20px;
+        transform-origin: 50% 50%;
+      }
+      .row { display: flex; gap: 27px; }
 
+      .cell { display: flex; flex-direction: column; align-items: center; gap: 10px; }
       .card {
-        position: relative;
-        display: flex; align-items: center; gap: 36px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 22px;
-        padding: 40px 48px;
-        margin-bottom: 34px;
-        background: rgba(255, 255, 255, 0.012);
+        width: 400px; border-radius: 16px; overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.12);
+        background:
+          radial-gradient(120% 100% at 50% 35%, #8e9094 0%, #6f7175 60%, #54565a 100%);
       }
-      .tile {
-        width: 124px; height: 124px; flex: none;
-        border-radius: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: rgba(255, 255, 255, 0.03);
-        display: flex; align-items: center; justify-content: center;
-      }
-      .tile svg { width: 60px; height: 60px; }
-      .card-title { font-size: 46px; font-weight: 500; margin-bottom: 12px; }
-      .card-sub { font-size: 30px; color: #8d8d8d; }
-
-      /* ---------- Composer ---------- */
-      .composer {
-        position: absolute; left: 110px; right: 110px; bottom: 70px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 22px; padding: 34px 40px;
-      }
-      .placeholder { font-size: 32px; color: #5c5c5c; margin-bottom: 40px; }
-      .crow { display: flex; align-items: center; gap: 26px; }
-      .divider { width: 1px; height: 40px; background: rgba(255,255,255,0.14); }
-      .citem { display: inline-flex; align-items: center; gap: 14px; font-size: 30px; color: #eaeaea; }
-      .citem svg { width: 30px; height: 30px; }
-      .strat {
-        border: 1px solid rgba(255,255,255,0.18); border-radius: 12px;
-        padding: 14px 22px; gap: 18px;
-      }
-      .strat .spark {
-        width: 40px; height: 40px; border-radius: 9px; background: #e8631a;
-        display: inline-flex; align-items: center; justify-content: center;
-      }
-      .strat .spark svg { width: 26px; height: 26px; }
-      .strat .x { color: #9a9a9a; font-size: 28px; margin-left: 4px; }
-      .model {
-        margin-left: auto;
-        border: 1px solid rgba(255,255,255,0.16); border-radius: 12px;
-        padding: 16px 24px; gap: 16px; font-size: 30px;
-      }
-      .model .chev { font-size: 22px; opacity: 0.7; }
-      .send-btn {
-        width: 66px; height: 66px; border-radius: 50%;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.16);
-        display: inline-flex; align-items: center; justify-content: center; flex: none;
-      }
-      .send-btn svg { width: 30px; height: 30px; }
-
-      /* ---------- Cursor ---------- */
-      #cursor {
-        position: absolute; left: 0; top: 0; width: 44px; height: 44px;
-        opacity: 0; pointer-events: none;
-        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
-      }
+      .card img { width: 100%; height: 100%; display: block; }
+      .h-head { height: 270px; }
+      .h-body { height: 300px; }
+      .head img, .master img { object-fit: cover; object-position: center 20%; }
+      .body img { object-fit: contain; }
+      .label { font-size: 28px; color: #f3f3f3; letter-spacing: 0.3px; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
 
-      <!-- Sidebar -->
       <div class="sidebar">
-        <div class="logo">WONDER</div>
-
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
-          New chat
-        </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><path d="M15.5 8.5 L11 11 L8.5 15.5 L13 13 Z" fill="#fff"/></svg>
-          Discover
-        </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M9 4 V20" stroke="#fff" stroke-width="1.6"/></svg>
-          Library
-        </div>
-        <div class="nav-item">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M7 4 H17 V20 L12 16 L7 20 Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          Bookmarks
-        </div>
-
-        <div class="nav-label">RECENT CHATS</div>
-        <div class="recent">Brand strategy critique</div>
-        <div class="recent">Campaign messaging</div>
-        <div class="recent">Website copy audit</div>
-        <div class="recent">Positioning ideas</div>
-        <div class="recent">Tagline exploration</div>
-        <div class="viewall">View all <svg viewBox="0 0 24 24" fill="none"><path d="M9 6 L15 12 L9 18" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-
+        <img class="logo" src="./assets/wonder-logo.png" alt="WONDER" />
         <div class="avatar">W</div>
       </div>
 
-      <!-- Main -->
       <div class="main">
-        <h1>Before I dig in, how do you want to work on this?</h1>
+        <div class="grid">
 
-        <div class="card" id="card1">
-          <div class="tile">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.5"/>
-              <path d="M15.5 8.5 L11 11 L8.5 15.5 L13 13 Z" fill="#fff"/>
-            </svg>
-          </div>
-          <div>
-            <div class="card-title">Guide me through it</div>
-            <div class="card-sub">I ask questions, you shape the thinking as we go.</div>
-          </div>
-        </div>
-
-        <div class="card" id="card2">
-          <div class="tile" id="tile2">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none">
-              <path d="M4 20 L4 16 L15 5 L19 9 L8 20 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M13 7 L17 11" stroke="#fff" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <div>
-            <div class="card-title">Take a first stab</div>
-            <div class="card-sub">I give you a revised brief to react to and refine.</div>
-          </div>
-        </div>
-
-        <!-- Composer -->
-        <div class="composer">
-          <div class="placeholder">Write a message...</div>
-          <div class="crow">
-            <div class="citem"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-            <div class="divider"></div>
-            <div class="citem">
-              <svg viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-                <rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-                <rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-                <rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-              </svg>
-              Tools
+          <!-- Row 1: Master -->
+          <div class="row">
+            <div class="cell master">
+              <div class="card h-head"><img src="./assets/master.png" /></div>
+              <div class="label">Master</div>
             </div>
-            <div class="citem strat">
-              <span class="spark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 L13.6 10.4 L22 12 L13.6 13.6 L12 22 L10.4 13.6 L2 12 L10.4 10.4 Z" fill="#fff"/></svg></span>
-              Creative Strategist <span class="x">&#10005;</span>
-            </div>
-            <div class="divider"></div>
-            <div class="citem model">Sonnet 4.6 <span class="chev">&#9662;</span></div>
-            <div class="send-btn"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
+
+          <!-- Row 2: Headshots -->
+          <div class="row">
+            <div class="cell head"><div class="card h-head"><img src="./assets/head-front.png" /></div><div class="label">Front</div></div>
+            <div class="cell head"><div class="card h-head"><img src="./assets/head-side.png" /></div><div class="label">Side</div></div>
+            <div class="cell head"><div class="card h-head"><img src="./assets/head-back.png" /></div><div class="label">Back</div></div>
+            <div class="cell head"><div class="card h-head"><img src="./assets/head-34.png" /></div><div class="label">&frac34;</div></div>
+          </div>
+
+          <!-- Row 3: Full body -->
+          <div class="row">
+            <div class="cell body"><div class="card h-body"><img src="./assets/body-front.png" /></div><div class="label">Front</div></div>
+            <div class="cell body"><div class="card h-body"><img src="./assets/body-side.png" /></div><div class="label">Side</div></div>
+            <div class="cell body"><div class="card h-body"><img src="./assets/body-back.png" /></div><div class="label">Back</div></div>
+            <div class="cell body"><div class="card h-body"><img src="./assets/body-34.png" /></div><div class="label">&frac34;</div></div>
+          </div>
+
         </div>
       </div>
-
-      <!-- Cursor -->
-      <svg id="cursor" viewBox="0 0 24 24" fill="none">
-        <path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/>
-      </svg>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      const COBALT = "#1f5bff";
 
-      // ---- Build-on sequence, paced across the 6s runtime ----
+      // Slow continuous push-in keeps the whole sheet alive
+      tl.fromTo(".grid", { scale: 1.0 }, { scale: 1.018, duration: 6, ease: "none" }, 0);
 
-      // Heading
-      tl.from("h1", { y: 26, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.2);
-
-      // Card 1 builds on (icon, then title, then subtitle)
-      tl.from("#card1 .card-icon", { scale: 0, rotation: -45, opacity: 0, transformOrigin: "50% 50%", duration: 0.7, ease: "back.out(1.7)" }, 0.8);
-      tl.from("#card1 .card-title", { y: 22, opacity: 0, duration: 0.6, ease: "power3.out" }, 1.0);
-      tl.from("#card1 .card-sub", { y: 16, opacity: 0, duration: 0.6, ease: "power3.out" }, 1.2);
-
-      // Card 2 builds on
-      tl.from("#card2 .card-icon", { scale: 0, rotation: -45, opacity: 0, transformOrigin: "50% 50%", duration: 0.7, ease: "back.out(1.7)" }, 1.7);
-      tl.from("#card2 .card-title", { y: 22, opacity: 0, duration: 0.6, ease: "power3.out" }, 1.9);
-      tl.from("#card2 .card-sub", { y: 16, opacity: 0, duration: 0.6, ease: "power3.out" }, 2.1);
-
-      // Composer builds on
-      tl.from(".composer", { y: 34, opacity: 0, duration: 0.7, ease: "power3.out" }, 2.7);
-
-      // Cursor rest position over "Take a first stab" card (fixed to rendered layout)
-      const cursor = document.getElementById("cursor");
-      gsap.set(cursor, { left: 1392, top: 588 });
-
-      // 3.5s–4.6s : cursor flies in from lower-right and lands on card 2
-      tl.fromTo(
-        cursor,
-        { x: 360, y: 220, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
-        3.5
+      // Cascade: each card builds on with a dynamic pop, in reading order
+      tl.from(
+        ".cell",
+        {
+          opacity: 0, scale: 0.82, y: 46, filter: "blur(10px)",
+          transformOrigin: "50% 60%",
+          duration: 0.72, ease: "back.out(1.5)", stagger: 0.2,
+        },
+        0.3
       );
-
-      // 4.7s : select "Take a first stab" — cobalt-blue highlight
-      tl.to("#card2", { scale: 0.992, duration: 0.12, ease: "power2.in" }, 4.7);
-      tl.to("#card2", { scale: 1, duration: 0.22, ease: "power2.out" }, 4.82);
-      tl.to("#card2", {
-        borderColor: COBALT,
-        boxShadow: "0 0 0 2px " + COBALT + ", 0 0 42px rgba(31,91,255,0.45)",
-        duration: 0.3, ease: "power2.out",
-      }, 4.7);
-      tl.to("#tile2", {
-        borderColor: COBALT,
-        backgroundColor: "rgba(31,91,255,0.16)",
-        duration: 0.3, ease: "power2.out",
-      }, 4.76);
 
       window.__timelines["main"] = tl;
     </script>
