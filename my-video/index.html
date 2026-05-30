@@ -15,11 +15,11 @@
         flex-direction: column; align-items: center; justify-content: center; }
 
       .bubble {
-        max-width: 1120px; background: #1c1c1e; border-radius: 40px;
+        width: 1120px; background: #1c1c1e; border-radius: 40px;
         padding: 52px 72px; margin-bottom: 38px;
       }
       .btext { font-size: 76px; line-height: 1.28; font-weight: 500; color: #fff;
-        letter-spacing: -0.5px; white-space: pre-wrap; }
+        letter-spacing: -0.5px; white-space: pre-wrap; min-height: 196px; }
       .caret { display: inline-block; width: 4px; height: 0.86em; background: #fff;
         vertical-align: -0.06em; margin-left: 6px; opacity: 0;
         animation: blink 1s steps(1,end) infinite; }
@@ -46,21 +46,22 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // bubble pops in
-      tl.from("#bubble", { opacity: 0, scale: 0.9, y: 20, duration: 0.4, ease: "back.out(1.6)" }, 0.15);
+      // 1) bubble animates in first (empty), with a soft settle
+      tl.from("#bubble", { opacity: 0, scale: 0.82, y: 40, duration: 0.6, ease: "back.out(1.7)" }, 0.2);
+      // caret blinks once the bubble has landed, before typing
+      tl.set("#caret", { opacity: 1 }, 0.95);
 
-      // type on
+      // 2) text types on after the bubble settles
       const fullText = "Before I dig in, how do you want to work this?";
       const typed = document.getElementById("typed");
       const proxy = { n: 0 };
       tl.to(proxy, {
-        n: fullText.length, duration: 2.4, ease: "none",
+        n: fullText.length, duration: 2.3, ease: "none",
         onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-        onComplete() { document.getElementById("caret").style.opacity = 1; },
-      }, 0.5);
+      }, 1.1);
 
-      // timestamp + actions fade in after typing
-      tl.to("#meta", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.0);
+      // 3) timestamp + actions fade in after typing
+      tl.to("#meta", { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.5);
 
       window.__timelines["main"] = tl;
     </script>
