@@ -214,39 +214,49 @@
       const tl = gsap.timeline({ paused: true });
       const COBALT = "#1f5bff";
 
-      // 0.3s+ : the two card icons "build on" — scale/rotate in, staggered
-      tl.from(
-        ".card-icon",
-        { scale: 0, rotation: -45, opacity: 0, transformOrigin: "50% 50%",
-          duration: 0.7, ease: "back.out(1.7)", stagger: 0.28 },
-        0.3
-      );
+      // ---- Build-on sequence, paced across the 6s runtime ----
+
+      // Heading
+      tl.from("h1", { y: 26, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.2);
+
+      // Card 1 builds on (icon, then title, then subtitle)
+      tl.from("#card1 .card-icon", { scale: 0, rotation: -45, opacity: 0, transformOrigin: "50% 50%", duration: 0.7, ease: "back.out(1.7)" }, 0.8);
+      tl.from("#card1 .card-title", { y: 22, opacity: 0, duration: 0.6, ease: "power3.out" }, 1.0);
+      tl.from("#card1 .card-sub", { y: 16, opacity: 0, duration: 0.6, ease: "power3.out" }, 1.2);
+
+      // Card 2 builds on
+      tl.from("#card2 .card-icon", { scale: 0, rotation: -45, opacity: 0, transformOrigin: "50% 50%", duration: 0.7, ease: "back.out(1.7)" }, 1.7);
+      tl.from("#card2 .card-title", { y: 22, opacity: 0, duration: 0.6, ease: "power3.out" }, 1.9);
+      tl.from("#card2 .card-sub", { y: 16, opacity: 0, duration: 0.6, ease: "power3.out" }, 2.1);
+
+      // Composer builds on
+      tl.from(".composer", { y: 34, opacity: 0, duration: 0.7, ease: "power3.out" }, 2.7);
 
       // Cursor rest position over "Take a first stab" card (fixed to rendered layout)
       const cursor = document.getElementById("cursor");
       gsap.set(cursor, { left: 1392, top: 588 });
 
-      // 2.2s–3.3s : cursor flies in from lower-right and lands on card 2
+      // 3.5s–4.6s : cursor flies in from lower-right and lands on card 2
       tl.fromTo(
         cursor,
         { x: 360, y: 220, opacity: 0 },
         { x: 0, y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
-        2.2
+        3.5
       );
 
-      // 3.4s : select "Take a first stab" — cobalt-blue highlight
-      tl.to("#card2", { scale: 0.992, duration: 0.12, ease: "power2.in" }, 3.4);
-      tl.to("#card2", { scale: 1, duration: 0.22, ease: "power2.out" }, 3.52);
+      // 4.7s : select "Take a first stab" — cobalt-blue highlight
+      tl.to("#card2", { scale: 0.992, duration: 0.12, ease: "power2.in" }, 4.7);
+      tl.to("#card2", { scale: 1, duration: 0.22, ease: "power2.out" }, 4.82);
       tl.to("#card2", {
         borderColor: COBALT,
         boxShadow: "0 0 0 2px " + COBALT + ", 0 0 42px rgba(31,91,255,0.45)",
         duration: 0.3, ease: "power2.out",
-      }, 3.4);
+      }, 4.7);
       tl.to("#tile2", {
         borderColor: COBALT,
         backgroundColor: "rgba(31,91,255,0.16)",
         duration: 0.3, ease: "power2.out",
-      }, 3.46);
+      }, 4.76);
 
       window.__timelines["main"] = tl;
     </script>
