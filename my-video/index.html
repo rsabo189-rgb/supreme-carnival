@@ -60,7 +60,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3" data-width="1920" data-height="1080">
       <img class="hero" src="./assets/plate.png" alt="" />
 
       <div class="composer" id="composer">
@@ -71,7 +71,7 @@
               <div class="fname">pepsi-coachella-...</div>
             </div>
           </div>
-          <div class="ptext" id="ptextRow"><span id="typed"></span><span class="caret" id="caret"></span></div>
+          <div class="ptext" id="ptextRow">Just got the creative brief. Adding a few thought starters and trends. Let's get sharp.</div>
         </div>
         <div class="toolbar">
           <div class="ti plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#d7d9de" stroke-width="1.9" stroke-linecap="round"/></svg></div>
@@ -104,16 +104,6 @@
       // little settle bounce on the composer as it expands
       tl.fromTo("#composer", { scale: 1 }, { scale: 1.012, duration: 0.12, ease: "power2.out" }, 1.12);
       tl.to("#composer", { scale: 1, duration: 0.5, ease: "elastic.out(1,0.6)" }, 1.24);
-
-      // 1.7s+: brief types on
-      const fullText = "Just got the creative brief. Adding a few thought starters and trends. Let's get sharp.";
-      const typed = document.getElementById("typed");
-      const proxy = { n: 0 };
-      tl.to(proxy, {
-        n: fullText.length, duration: 2.6, ease: "none",
-        onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-        onComplete() { document.getElementById("caret").style.opacity = 1; },
-      }, 1.7);
 
       window.__timelines["main"] = tl;
     </script>
