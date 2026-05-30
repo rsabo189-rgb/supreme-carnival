@@ -11,155 +11,56 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
-      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; }
 
-      /* ===== Homepage ===== */
-      .home { position: absolute; inset: 0; transform-origin: 56% 82%; will-change: transform, filter; }
+      .hero { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
 
-      .sidebar { position: absolute; left: 0; top: 0; width: 296px; height: 1080px;
-        border-right: 1px solid rgba(255,255,255,0.08); }
-      .logo { position: absolute; left: 30px; top: 30px; width: 56px; mix-blend-mode: lighten; }
-      .side-ic { position: absolute; top: 38px; display: flex; gap: 18px; right: 28px; }
-      .side-ic svg { width: 26px; height: 26px; stroke: #9a9a9a; }
-      .nav { position: absolute; left: 16px; right: 16px; top: 100px; }
-      .nav-item { display: flex; align-items: center; gap: 18px; padding: 16px 18px; border-radius: 10px;
-        font-size: 26px; color: #c8c8c8; }
-      .nav-item.active { background: rgba(255,255,255,0.06); color: #fff; }
-      .nav-item svg { width: 26px; height: 26px; }
-      .nav-h { font-size: 18px; letter-spacing: 1.5px; color: #6a6a6a; margin: 34px 0 16px 18px; }
-      .proj { display: flex; align-items: center; gap: 14px; padding: 10px 18px; font-size: 23px; color: #b4b4b4; }
-      .dot { width: 10px; height: 10px; border-radius: 50%; }
-      .acct { position: absolute; left: 22px; bottom: 26px; display: flex; align-items: center; gap: 16px; }
-      .acct .av { width: 50px; height: 50px; border-radius: 50%; background: #d9d9d9; color: #222;
-        display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600; }
-      .acct .r { font-size: 24px; color: #d4d4d4; }
-
-      .main { position: absolute; left: 296px; top: 0; right: 0; bottom: 0; padding: 70px 96px; }
-      h1 { font-size: 64px; line-height: 1.0; font-weight: 500; margin-bottom: 10px; }
-      h1 .it { font-family: Georgia, serif; font-style: italic; font-weight: 600; }
-      .q2 { font-size: 40px; font-weight: 400; color: #f0f0f0; margin-bottom: 32px; }
-
-      .sec-h { font-size: 18px; letter-spacing: 2px; color: #7d7d7d; margin: 0 0 14px; }
-      .chips { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
-      .chip { border: 1px solid rgba(255,255,255,0.16); border-radius: 9999px; padding: 12px 22px;
-        font-size: 23px; color: #e8e8e8; background: rgba(255,255,255,0.02); }
-
-      .composer { position: absolute; left: 96px; right: 96px; bottom: 56px;
-        border: 1px solid rgba(255,255,255,0.12); border-radius: 18px;
-        background: rgba(255,255,255,0.015); padding: 24px 36px 0; }
-      .ph { font-size: 26px; color: #6a6a6a; min-height: 70px; }
-      .ctools { display: flex; align-items: center; gap: 18px; border-top: 1px solid rgba(255,255,255,0.08);
-        margin: 0 -38px; padding: 20px 38px; }
-      .ctool { display: inline-flex; align-items: center; gap: 12px; border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 10px; padding: 16px 22px; font-size: 25px; color: #dcdcdc; }
-      .ctool svg { width: 24px; height: 24px; }
-      .ctool .v { color: #fff; font-weight: 600; }
-      .ctool.amber { color: #d6952f; border-color: rgba(214,149,47,0.5); }
-      .ctool.plain { border-color: transparent; }
-      .ctool.gen { background: #4b41e0; border-color: #4b41e0; color: #fff; font-weight: 600; margin-left: auto; }
-
-      /* ===== Zoom composer scene (image 2) ===== */
-      .zoom { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-        opacity: 0; background: #000; will-change: transform, opacity; }
-      .zbox { width: 1560px; border: 1px solid rgba(255,255,255,0.14); border-radius: 26px;
-        background: #0a0a0a; padding: 44px 46px 0; }
-      .zatt { display: flex; gap: 22px; margin-bottom: 34px; }
-      .zchip { display: inline-flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 14px; padding: 20px 28px; font-size: 30px; color: #ededed; }
-      .zchip svg { width: 32px; height: 32px; }
-      .ztext { font-size: 56px; line-height: 1.32; font-weight: 400; color: #fff; min-height: 300px; white-space: pre-wrap; }
-      .zcaret { display: inline-block; width: 3px; height: 0.9em; background: #fff; vertical-align: -0.08em;
-        margin-left: 4px; opacity: 0; animation: blink 1s steps(1,end) infinite; }
+      /* Fresh frosted-glass composer placed over the baked-in one */
+      .composer {
+        position: absolute; left: 326px; top: 452px; width: 1268px; height: 360px;
+        border-radius: 28px;
+        background: rgba(28,30,36,0.42);
+        backdrop-filter: blur(26px) saturate(120%);
+        -webkit-backdrop-filter: blur(26px) saturate(120%);
+        border: 1px solid rgba(255,255,255,0.14);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.12);
+      }
+      .ptext {
+        position: absolute; left: 56px; right: 56px; top: 52px;
+        font-size: 40px; line-height: 1.34; font-weight: 400; color: #f3f3f3;
+        text-shadow: 0 1px 10px rgba(0,0,0,0.35); white-space: pre-wrap;
+      }
+      .caret { display: inline-block; width: 3px; height: 0.9em; background: #fff;
+        vertical-align: -0.08em; margin-left: 4px; opacity: 0;
+        animation: blink 1s steps(1,end) infinite; }
       @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
-      .ztools { display: flex; align-items: center; gap: 22px; border-top: 1px solid rgba(255,255,255,0.08);
-        margin: 0 -46px; padding: 30px 46px; }
-      .ztool { display: inline-flex; align-items: center; gap: 14px; border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 12px; padding: 18px 26px; font-size: 28px; color: #dcdcdc; }
-      .ztool svg { width: 28px; height: 28px; }
-      .ztool .v { color: #fff; font-weight: 600; }
-      .ztool.amber { color: #d6952f; border-color: rgba(214,149,47,0.4); }
-      .ztool.plain { border-color: transparent; }
-      .ztool.gen { background: #1f5bff; border-color: #1f5bff; color: #fff; font-weight: 600; margin-left: auto; }
+
+      .toolbar { position: absolute; left: 44px; right: 36px; bottom: 36px;
+        display: flex; align-items: center; gap: 40px; }
+      .ti { display: inline-flex; align-items: center; gap: 16px; font-size: 30px; color: #d7d9de; }
+      .ti svg { width: 32px; height: 32px; }
+      .ti.plus svg { width: 36px; height: 36px; }
+      .ti.cs { color: #6ea8ff; }
+      .ti.cs .x { color: #8c8c93; margin-left: 8px; font-size: 28px; }
+      .ti.model { margin-left: auto; }
+      .send { width: 70px; height: 70px; border-radius: 50%; background: #fff;
+        display: inline-flex; align-items: center; justify-content: center; }
+      .send svg { width: 32px; height: 32px; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="4" data-width="1920" data-height="1080">
 
-      <!-- ===== Homepage ===== -->
-      <div class="home" id="home">
-        <div class="sidebar">
-          <img class="logo" src="./assets/wonder-logo.png" alt="W" />
-          <div class="side-ic">
-            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#9a9a9a" stroke-width="1.6"/><path d="M10 5 V19" stroke="#9a9a9a" stroke-width="1.6"/></svg>
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9a9a9a" stroke-width="1.6"/><path d="M16 16 L21 21" stroke="#9a9a9a" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </div>
-          <div class="nav">
-            <div class="nav-item active fade"><svg viewBox="0 0 24 24" fill="none"><path d="M4 11 L12 4 L20 11 V20 a1 1 0 0 1-1 1 H5 a1 1 0 0 1-1-1 Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg> Home</div>
-            <div class="nav-item fade"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#c8c8c8" stroke-width="1.6"/><path d="M4 9 H20" stroke="#c8c8c8" stroke-width="1.6"/></svg> Projects</div>
-            <div class="nav-item fade"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#c8c8c8" stroke-width="1.6"/><path d="M12 8 V12 L15 14" stroke="#c8c8c8" stroke-width="1.6" stroke-linecap="round"/></svg> Inspiration</div>
-            <div class="nav-h fade">PROJECTS</div>
-            <div class="proj fade"><span class="dot" style="background:#3fd16b"></span> Pepsi Summer 2026 – Feel...</div>
-            <div class="proj fade"><span class="dot" style="background:#4aa3ff"></span> Feel It First</div>
-          </div>
-          <div class="acct fade"><div class="av">A</div><div class="r">Creative Director</div></div>
-        </div>
+      <img class="hero" src="./assets/hero-wonder.png" alt="" />
 
-        <div class="main">
-          <h1 class="fade"><span class="it">Hi Chris,</span></h1>
-          <div class="q2 fade">what do you want to create?</div>
-
-          <div class="sec-h fade">INDUSTRIES</div>
-          <div class="chips">
-            <div class="chip fade">Fashion Shoot</div>
-            <div class="chip fade">Product Ad</div>
-            <div class="chip fade">Lifestyle Campaign</div>
-            <div class="chip fade">Social Launch</div>
-          </div>
-
-          <div class="sec-h fade">INSPIRATION</div>
-          <div class="chips">
-            <div class="chip fade">Golden Hour Campaign</div>
-            <div class="chip fade">Dark Studio Editorial</div>
-            <div class="chip fade">Urban Street Story</div>
-            <div class="chip fade">Product Hero Shots</div>
-            <div class="chip fade">Athlete in Motion</div>
-            <div class="chip fade">Minimalist Beauty</div>
-            <div class="chip fade">Neon Night City</div>
-            <div class="chip fade">Nature &amp; Wellness</div>
-            <div class="chip fade">Social Vertical Launch</div>
-          </div>
-
-          <div class="composer fade" id="homeComposer">
-            <div class="ph">Describe the scene, shot, mood, characters, styling, location...</div>
-            <div class="ctools">
-              <div class="ctool"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#dcdcdc" stroke-width="1.8" stroke-linecap="round"/></svg> Attach</div>
-              <div class="ctool"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#dcdcdc" stroke-width="1.6"/></svg> Aspect Ratio <span class="v">16:9</span> &#9662;</div>
-              <div class="ctool">Length <span class="v">30s</span> &#9662;</div>
-              <div class="ctool amber">&#9998; Improve with AI</div>
-              <div class="ctool plain">Start blank</div>
-              <div class="ctool gen">Generate &#8250;</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== Zoom composer ===== -->
-      <div class="zoom" id="zoom">
-        <div class="zbox">
-          <div class="zatt">
-            <div class="zchip"><svg viewBox="0 0 24 24" fill="none"><path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3 V8 H19" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg> pepsi-creative-brief.pdf</div>
-            <div class="zchip"><svg viewBox="0 0 24 24" fill="none"><path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3 V8 H19" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg> Feel_It_First.pdf</div>
-            <div class="zchip"><svg viewBox="0 0 24 24" fill="none"><path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3 V8 H19" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg> Coachella_References.pdf</div>
-          </div>
-          <div class="ztext"><span id="typed"></span><span class="zcaret" id="caret"></span></div>
-          <div class="ztools">
-            <div class="ztool"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#dcdcdc" stroke-width="1.8" stroke-linecap="round"/></svg> Attach</div>
-            <div class="ztool"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#dcdcdc" stroke-width="1.6"/></svg> Aspect Ratio <span class="v">16:9</span> &#9662;</div>
-            <div class="ztool">Length <span class="v">30s</span> &#9662;</div>
-            <div class="ztool plain">&#9998; Improve with AI</div>
-            <div class="ztool plain">Start blank</div>
-            <div class="ztool gen">Generate &#8250;</div>
-          </div>
+      <div class="composer">
+        <div class="ptext"><span id="typed"></span><span class="caret" id="caret"></span></div>
+        <div class="toolbar">
+          <div class="ti plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#d7d9de" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+          <div class="ti"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7 H14 M18 7 H20 M4 17 H8 M12 17 H20" stroke="#d7d9de" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" stroke="#d7d9de" stroke-width="1.8"/><circle cx="10" cy="17" r="2.2" stroke="#d7d9de" stroke-width="1.8"/></svg> Tools</div>
+          <div class="ti cs"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18 H15 M10 21 H14" stroke="#6ea8ff" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3 a6 6 0 0 0-4 10.5 c0.8 0.8 1 1.4 1 2.5 H15 c0-1.1 0.2-1.7 1-2.5 A6 6 0 0 0 12 3 Z" stroke="#6ea8ff" stroke-width="1.8" stroke-linejoin="round"/></svg> Creative Strategist <span class="x">&#10005;</span></div>
+          <div class="ti model"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L13.4 9 L19 10.5 L13.4 12 L12 18 L10.6 12 L5 10.5 L10.6 9 Z" fill="#d7d9de"/><path d="M18 4 L18.7 6.3 L21 7 L18.7 7.7 L18 10 L17.3 7.7 L15 7 L17.3 6.3 Z" fill="#d7d9de"/></svg> Sonnet 4.6</div>
+          <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#111" stroke-width="2.6" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
 
@@ -169,27 +70,16 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // 1) Homepage builds on (cascade)
-      tl.from(".home .fade", { opacity: 0, y: 26, filter: "blur(6px)", duration: 0.5,
-        ease: "power3.out", stagger: 0.05 }, 0.2);
-
-      // 2) Camera PUNCHES into the composer (scale toward composer center, slight blur)
-      tl.to("#home", { scale: 3.4, duration: 1.2, ease: "power3.in" }, 2.3);
-      tl.to("#home", { filter: "blur(10px)", opacity: 0, duration: 0.5, ease: "power2.in" }, 3.0);
-
-      // 3) Zoom composer settles center frame (scales down into place as we "arrive")
-      tl.fromTo("#zoom", { opacity: 0, scale: 1.18 },
-        { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 3.1);
-      tl.set("#caret", { opacity: 1 }, 3.7);
-
-      // 4) Type the brief
-      const fullText = "I need to make a storyboard for a Pepsi summer campaign shot at Coachella. Golden hour, festival crowd, the white ferris wheel in every shot.";
+      const fullText = "Just got the brief. Adding a few thought starters and trends. Lets get sharp.";
       const typed = document.getElementById("typed");
       const proxy = { n: 0 };
+
+      // type on (0.3s–3.0s) then hold
       tl.to(proxy, {
-        n: fullText.length, duration: 3.7, ease: "none",
+        n: fullText.length, duration: 2.7, ease: "none",
         onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-      }, 3.8);
+        onComplete() { document.getElementById("caret").style.opacity = 1; },
+      }, 0.3);
 
       window.__timelines["main"] = tl;
     </script>
