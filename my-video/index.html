@@ -60,7 +60,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="3" data-width="1920" data-height="1080">
       <div class="box">
         <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
 
@@ -106,28 +106,28 @@
       const typed = document.getElementById("typed");
       const proxy = { n: 0 };
 
-      // 0.2s–3.3s: type the prompt one character at a time
+      // 0.15s–1.65s: type the prompt one character at a time
       tl.to(proxy, {
-        n: fullText.length, duration: 3.1, ease: "none",
+        n: fullText.length, duration: 1.5, ease: "none",
         onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-      }, 0.2);
+      }, 0.15);
 
       // Rest the cursor tip on the orange send button (fixed to rendered layout)
       const cursor = document.getElementById("cursor");
       gsap.set(cursor, { left: 1776, top: 628 });
 
-      // 3.5s–4.6s: cursor flies in from lower-right and lands on send
+      // 1.75s–2.4s: cursor flies in from lower-right and lands on send
       tl.fromTo(cursor,
         { x: 90, y: 240, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 1.05, ease: "power3.out" }, 3.5);
+        { x: 0, y: 0, opacity: 1, duration: 0.65, ease: "power3.out" }, 1.75);
 
-      // 4.65s: press + orange glow
-      tl.to("#send", { scale: 0.93, duration: 0.12, ease: "power2.in" }, 4.65);
-      tl.to("#send", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.77);
+      // 2.45s: press + orange glow
+      tl.to("#send", { scale: 0.93, duration: 0.1, ease: "power2.in" }, 2.45);
+      tl.to("#send", { scale: 1, duration: 0.16, ease: "power2.out" }, 2.55);
       tl.to("#send", {
         boxShadow: "0 0 0 5px rgba(240,83,26,0.32), 0 0 44px rgba(240,83,26,0.6)",
-        duration: 0.22, ease: "power2.out",
-      }, 4.65);
+        duration: 0.2, ease: "power2.out",
+      }, 2.45);
 
       window.__timelines["main"] = tl;
     </script>
