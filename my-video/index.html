@@ -15,47 +15,67 @@
         width: 1920px;
         height: 1080px;
         overflow: hidden;
-        background: #0a0a0a;
+        background: #000000;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
           Arial, sans-serif;
       }
-
       #root {
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
-      /* ---- Prompt box ---- */
+      /* ---- Composer box ---- */
       .box {
-        width: 1680px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 28px;
-        background: rgba(255, 255, 255, 0.02);
-        overflow: hidden;
+        width: 1820px;
+        border: 2px solid #3b6bff;
+        border-radius: 26px;
+        background: #0a0a0a;
+        padding: 34px 38px 30px;
       }
 
-      .editor {
-        min-height: 360px;
-        padding: 56px 64px 48px;
+      /* ---- Attachment chips ---- */
+      .attachments {
+        display: flex;
+        gap: 22px;
+        margin-bottom: 30px;
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px 30px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.015);
+        color: #f1f1f1;
+        font-size: 30px;
+        font-weight: 500;
+      }
+      .chip svg {
+        width: 34px;
+        height: 34px;
+        flex: none;
       }
 
+      /* ---- Prompt text ---- */
       .prompt-text {
-        font-size: 70px;
-        line-height: 1.3;
+        font-size: 66px;
+        line-height: 1.32;
         font-weight: 500;
         color: #ffffff;
         letter-spacing: -0.5px;
         white-space: pre-wrap;
+        min-height: 174px;
+        margin-bottom: 30px;
       }
-
       .caret {
         display: inline-block;
         width: 3px;
-        height: 0.95em;
+        height: 0.92em;
         background: #ffffff;
-        vertical-align: -0.12em;
-        margin-left: 2px;
+        vertical-align: -0.1em;
+        margin-left: 4px;
         animation: blink 1.06s steps(1, end) infinite;
       }
       @keyframes blink {
@@ -73,46 +93,64 @@
       .toolbar {
         display: flex;
         align-items: center;
-        gap: 18px;
-        padding: 26px 32px 32px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        gap: 20px;
       }
-
       .pill {
         display: inline-flex;
         align-items: center;
-        gap: 12px;
-        height: 64px;
-        padding: 0 26px;
-        border-radius: 9999px;
-        border: 1px solid rgba(255, 255, 255, 0.16);
+        gap: 14px;
+        height: 72px;
+        padding: 0 28px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
         color: #f2f2f2;
-        font-size: 27px;
+        font-size: 30px;
         font-weight: 500;
         white-space: nowrap;
       }
-      .pill .val {
+      .pill svg {
+        width: 30px;
+        height: 30px;
+        flex: none;
+      }
+      .icon-btn {
+        width: 72px;
+        padding: 0;
+        justify-content: center;
+        font-size: 40px;
+        font-weight: 300;
+      }
+      .cm-brain {
+        background: #1a72ff;
+        border-color: #1a72ff;
         color: #ffffff;
         font-weight: 600;
       }
-      .pill .chev {
-        font-size: 20px;
+      .cm-brain .x {
+        opacity: 0.85;
+        font-size: 30px;
+        margin-left: 6px;
+      }
+      .chev {
+        font-size: 22px;
         opacity: 0.7;
-        margin-left: 2px;
       }
-      .pill.plain {
-        border-color: transparent;
-      }
-
-      .generate {
+      .spacer {
         margin-left: auto;
-        background: #3a5bff;
-        border: none;
-        color: #ffffff;
-        font-weight: 600;
       }
-      .generate .arrow {
-        font-size: 24px;
+      .send {
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        background: #ff5a1f;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      .send svg {
+        width: 38px;
+        height: 38px;
       }
 
       /* ---- Cursor ---- */
@@ -120,11 +158,11 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         opacity: 0;
         pointer-events: none;
-        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+        filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.7));
       }
     </style>
   </head>
@@ -138,23 +176,69 @@
       data-height="1080"
     >
       <div class="box">
-        <div class="editor">
-          <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
+        <!-- Attachments -->
+        <div class="attachments">
+          <div class="chip">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z"
+                stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="M14 3 V8 H19" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+            pepsi-creative-brief.pdf
+          </div>
+          <div class="chip">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z"
+                stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="M14 3 V8 H19" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+            Feel_It_First.pdf
+          </div>
+          <div class="chip">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M14 3 H7 a2 2 0 0 0-2 2 V19 a2 2 0 0 0 2 2 H17 a2 2 0 0 0 2-2 V8 Z"
+                stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+              <path d="M14 3 V8 H19" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+            Coachella_References.pdf
+          </div>
         </div>
 
+        <!-- Prompt text -->
+        <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
+
+        <!-- Toolbar -->
         <div class="toolbar">
-          <div class="pill">+ Attach</div>
+          <div class="pill icon-btn">+</div>
           <div class="pill">
-            <span>&#9974; Aspect Ratio</span><span class="val">16:9</span
-            ><span class="chev">&#9662;</span>
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
+              <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
+              <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
+              <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="#ffffff" stroke-width="1.7" />
+            </svg>
+            Tools
           </div>
-          <div class="pill">
-            <span>Length</span><span class="val">30s</span
-            ><span class="chev">&#9662;</span>
+          <div class="pill cm-brain">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" />
+              <path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" />
+            </svg>
+            CM Brain <span class="x">&#10005;</span>
           </div>
-          <div class="pill" id="improve">&#9998; Improve with AI</div>
-          <div class="pill plain">Start blank</div>
-          <div class="pill generate">Generate <span class="arrow">&#8250;</span></div>
+
+          <div class="pill spacer">
+            Sonnet 4.6 <span class="chev">&#9662;</span>
+          </div>
+          <div class="send" id="send">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 19 V5" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" />
+              <path d="M6 11 L12 5 L18 11" stroke="#ffffff" stroke-width="2.4"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -174,16 +258,16 @@
       const tl = gsap.timeline({ paused: true });
 
       const fullText =
-        "A Pepsi summer spot. Coachella, golden hour. The white ferris wheel in every shot.";
+        "Just got this brief. Adding a few thought starters and trends. Let’s get sharp.";
       const typed = document.getElementById("typed");
       const proxy = { n: 0 };
 
-      // 0.2s–3.5s: type the prompt one character at a time (deterministic, timeline-driven)
+      // 0.2s–3.6s: type the prompt one character at a time (timeline-driven, deterministic)
       tl.to(
         proxy,
         {
           n: fullText.length,
-          duration: 3.3,
+          duration: 3.4,
           ease: "none",
           onUpdate() {
             typed.textContent = fullText.slice(0, Math.round(proxy.n));
@@ -192,27 +276,25 @@
         0.2
       );
 
-      // Rest the cursor tip on the "Improve with AI" button (fixed to the rendered layout)
+      // Rest the cursor tip on the orange send button (fixed to the rendered layout)
       const cursor = document.getElementById("cursor");
-      gsap.set(cursor, { left: 948, top: 698 });
+      gsap.set(cursor, { left: 1812, top: 742 });
 
-      // 3.6s–4.7s: cursor flies in from lower-right and lands on "Improve with AI"
+      // 3.7s–4.7s: cursor flies in from lower-right and lands on the send button
       tl.fromTo(
         cursor,
-        { x: 640, y: 250, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 1.1, ease: "power3.out" },
-        3.6
+        { x: 70, y: 250, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 1.0, ease: "power3.out" },
+        3.7
       );
 
-      // 4.75s: button press + glow
-      tl.to("#improve", { scale: 0.96, duration: 0.12, ease: "power2.in" }, 4.75);
-      tl.to("#improve", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.88);
+      // 4.75s: send button press + orange glow
+      tl.to("#send", { scale: 0.94, duration: 0.12, ease: "power2.in" }, 4.75);
+      tl.to("#send", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.87);
       tl.to(
-        "#improve",
+        "#send",
         {
-          borderColor: "rgba(150,170,255,0.95)",
-          boxShadow:
-            "0 0 0 2px rgba(120,140,255,0.85), 0 0 34px rgba(70,100,255,0.55)",
+          boxShadow: "0 0 0 4px rgba(255,90,31,0.35), 0 0 38px rgba(255,90,31,0.6)",
           duration: 0.22,
           ease: "power2.out",
         },
