@@ -7,138 +7,150 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #0d0d0d;
+        width: 1920px; height: 1080px; overflow: hidden; background: #0a0a0a;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
       #root { position: relative; }
 
-      .sidebar { position: absolute; left: 0; top: 0; width: 140px; height: 1080px;
+      .sidebar { position: absolute; left: 0; top: 0; width: 138px; height: 1080px;
         border-right: 1px solid rgba(255,255,255,0.07); }
-      .logo { position: absolute; left: 16px; top: 40px; width: 108px; mix-blend-mode: lighten; }
-      .avatar { position: absolute; left: 26px; bottom: 34px; width: 52px; height: 52px; border-radius: 50%;
+      .logo { position: absolute; left: 16px; top: 40px; width: 104px; mix-blend-mode: lighten; }
+      .avatar { position: absolute; left: 26px; bottom: 30px; width: 50px; height: 50px; border-radius: 50%;
         border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;
-        font-size: 22px; color: #cfcfcf; }
+        font-size: 21px; color: #cfcfcf; }
 
-      .content { position: absolute; left: 310px; top: 50px; width: 1440px; }
-      h1 { font-family: Georgia, "Times New Roman", serif; font-size: 74px; font-weight: 600;
-        letter-spacing: -0.5px; margin-bottom: 26px; }
-      .sub { font-size: 28px; color: #8f8f8f; line-height: 1.4; margin-bottom: 52px; }
+      /* Left column */
+      .you { position: absolute; left: 185px; top: 168px; display: flex; gap: 22px; }
+      .you .av { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25);
+        display: flex; align-items: center; justify-content: center; font-size: 20px; color: #ddd; flex: none; }
+      .you .bub { background: #1c1c1c; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
+        padding: 18px 26px; }
+      .you .lbl { font-size: 24px; color: #8c8c8c; margin-bottom: 8px; }
+      .you .q { font-size: 30px; color: #ededed; }
 
-      .fields { display: flex; gap: 26px; margin-bottom: 42px; }
-      .field { flex: 1; }
-      .field.proj { flex: 1.45; }
-      .lbl { font-size: 25px; color: #8f8f8f; margin-bottom: 14px; }
-      .inp { height: 84px; border: 1px solid rgba(255,255,255,0.16); border-radius: 12px;
-        display: flex; align-items: center; justify-content: space-between; padding: 0 26px;
-        font-size: 30px; color: #efefef; }
-      .inp .chev { color: #9a9a9a; font-size: 22px; }
+      .ans { position: absolute; left: 185px; top: 320px; width: 680px; }
+      .brand { display: flex; align-items: center; gap: 16px; font-size: 30px; color: #d0d0d0; margin-bottom: 26px; }
+      .brand svg { width: 40px; height: 40px; }
+      .num { font-size: 78px; font-weight: 700; letter-spacing: -1px; margin-bottom: 14px; }
+      .cont { font-size: 34px; color: #c4c4c4; margin-bottom: 30px; }
+      .note { font-size: 30px; font-style: italic; color: #8f8f8f; margin-bottom: 34px; }
+      .chip { display: inline-flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.14);
+        border-radius: 12px; padding: 18px 24px; font-size: 28px; color: #d6d6d6; }
+      .chip .dia { width: 30px; height: 30px; }
+      .chip .ext { width: 26px; height: 26px; opacity: 0.7; }
+      .chip .meta { color: #8a8a8a; }
+      .acts { display: flex; gap: 34px; margin-top: 34px; }
+      .acts svg { width: 32px; height: 32px; stroke: #7d7d7d; }
 
-      .brief-box { border: 1px solid rgba(255,255,255,0.16); border-radius: 16px;
-        padding: 34px 36px; height: 268px; position: relative; }
-      .brief-text { font-size: 30px; line-height: 1.42; color: #e8e8e8; }
-      .caret { display: inline-block; width: 3px; height: 0.92em; background: #e8e8e8;
-        vertical-align: -0.1em; margin-left: 3px; animation: blink 1s steps(1,end) infinite; }
-      @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
-      .count { position: absolute; left: 36px; bottom: 24px; font-size: 24px; color: #6a6a6a; }
+      /* Composer */
+      .composer { position: absolute; left: 162px; top: 922px; width: 750px; height: 132px;
+        border: 1px solid #2f6bff; border-radius: 18px; display: flex; align-items: center; gap: 18px; padding: 0 26px; }
+      .cpill { display: inline-flex; align-items: center; gap: 12px; font-size: 27px; color: #d8d8d8; }
+      .cpill svg { width: 26px; height: 26px; }
+      .cm { background: #1f72ff; border-radius: 10px; padding: 14px 18px; color: #fff; }
+      .cm .x { margin-left: 4px; opacity: 0.9; }
+      .sel { margin-left: auto; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; padding: 14px 18px; }
+      .chev { font-size: 19px; opacity: 0.7; }
+      .csend { width: 56px; height: 56px; border-radius: 50%; background: #ef5f1c; display: inline-flex; align-items: center; justify-content: center; }
+      .csend svg { width: 28px; height: 28px; }
 
-      .gen { width: 600px; height: 86px; margin: 44px auto 0; background: #ededed; color: #111;
-        border-radius: 14px; display: flex; align-items: center; justify-content: center;
-        font-size: 34px; font-weight: 500; }
+      /* Right doc */
+      .doc { position: absolute; left: 950px; top: 66px; width: 905px; height: 948px;
+        background: linear-gradient(160deg, #161616 0%, #0e0e0e 60%); border: 1px solid rgba(255,255,255,0.09);
+        border-radius: 22px; overflow: hidden; }
+      .doc .x { position: absolute; right: 196px; top: 40px; width: 40px; height: 40px; }
+      .export { position: absolute; right: 40px; top: 36px; display: inline-flex; align-items: center; gap: 14px;
+        border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 16px 24px; font-size: 28px; color: #e6e6e6; }
+      .export svg { width: 28px; height: 28px; }
+      .doc h2 { position: absolute; left: 70px; top: 350px; width: 760px; font-size: 66px; font-weight: 700;
+        letter-spacing: 0.5px; line-height: 1.12; }
+      .doc .credit { position: absolute; left: 72px; top: 560px; font-size: 32px; color: #9a9a9a; }
+      .pepsi { position: absolute; left: 70px; bottom: 100px; display: flex; align-items: center; gap: 24px; }
+      .pepsi .globe { width: 132px; height: 132px; }
+      .pepsi .word { font-size: 110px; font-weight: 900; font-style: italic; letter-spacing: -3px;
+        background: linear-gradient(180deg, #f0f0f0 0%, #bdbdbd 45%, #8f8f8f 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-      .composer { position: absolute; left: 310px; right: 170px; bottom: 34px; height: 128px;
-        border: 1px solid rgba(255,255,255,0.12); border-radius: 20px;
-        display: flex; align-items: center; gap: 26px; padding: 0 34px; }
-      .cpill { display: inline-flex; align-items: center; gap: 14px; font-size: 30px; color: #d8d8d8; }
-      .cpill svg { width: 30px; height: 30px; }
-      .amber { border: 1px solid #7a5e2e; background: rgba(140,108,52,0.18); border-radius: 14px;
-        padding: 16px 24px; color: #d6ab68; }
-      .amber svg { stroke: #d6ab68; }
-      .amber .x { color: #b0905a; margin-left: 6px; font-size: 26px; }
-      .sel { margin-left: auto; border: 1px solid rgba(255,255,255,0.16); border-radius: 12px;
-        padding: 16px 24px; }
-      .chev { font-size: 22px; opacity: 0.7; }
-      .csend { width: 64px; height: 64px; border-radius: 50%; background: #ef5f1c;
-        display: inline-flex; align-items: center; justify-content: center; }
-      .csend svg { width: 30px; height: 30px; }
-
-      #cursor { position: absolute; left: 0; top: 0; width: 46px; height: 46px; opacity: 0;
-        pointer-events: none; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.8)); }
+      #cursor { position: absolute; left: 0; top: 0; width: 44px; height: 44px; opacity: 0; pointer-events: none; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
 
       <div class="sidebar">
         <img class="logo" src="./assets/wonder-logo.png" alt="WONDER" />
         <div class="avatar">W</div>
       </div>
 
-      <div class="content">
-        <h1>Welcome to the Workshop.</h1>
-        <div class="sub">Tell us about your project. The more detail, the better<br/>your storyboard.</div>
+      <!-- Left answer -->
+      <div class="you" id="you">
+        <div class="av">W</div>
+        <div class="bub"><div class="lbl">You</div><div class="q">What&rsquo;s our estimated total budget?</div></div>
+      </div>
 
-        <div class="fields">
-          <div class="field proj"><div class="lbl">Project</div><div class="inp">PEPSI SUMMER 2026</div></div>
-          <div class="field"><div class="lbl">Client</div><div class="inp">Pepsi</div></div>
-          <div class="field"><div class="lbl">Format</div><div class="inp">30s <span class="chev">&#9662;</span></div></div>
-          <div class="field"><div class="lbl">Aspect</div><div class="inp">16:9 <span class="chev">&#9662;</span></div></div>
+      <div class="ans">
+        <div class="brand bd"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#d0d0d0" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#d0d0d0" stroke-width="1.5" stroke-linejoin="round"/></svg> CM Brain</div>
+        <div class="num bd">$419,500 &ndash; $461,450</div>
+        <div class="cont bd">Base + 10% contingency</div>
+        <div class="note bd">All figures are planning estimates, not final bids.</div>
+        <div class="bd"><div class="chip">
+          <svg class="dia" viewBox="0 0 24 24" fill="none"><path d="M12 3 L21 12 L12 21 L3 12 Z" stroke="#d6d6d6" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          Pepsi Summer 2026 Ballpark Budget <span class="meta">&middot; PDF &middot;</span>
+          <svg class="ext" viewBox="0 0 24 24" fill="none"><path d="M14 4 H20 V10 M20 4 L11 13 M18 14 V19 a1 1 0 0 1-1 1 H5 a1 1 0 0 1-1-1 V7 a1 1 0 0 1 1-1 H10" stroke="#9a9a9a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div></div>
+        <div class="acts bd">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2" stroke="#7d7d7d" stroke-width="1.5"/><path d="M16 8 V6 a2 2 0 0 0-2-2 H6 a2 2 0 0 0-2 2 V14 a2 2 0 0 0 2 2 H8" stroke="#7d7d7d" stroke-width="1.5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#7d7d7d" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#7d7d7d" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 9 V15 H8 L13 19 V5 L8 9 Z" stroke="#7d7d7d" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 9 a4 4 0 0 1 0 6" stroke="#7d7d7d" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 a8 8 0 0 1 13-6 M20 6 V11 H15 M20 12 a8 8 0 0 1-13 6 M4 18 V13 H9" stroke="#7d7d7d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-
-        <div class="lbl">Brief</div>
-        <div class="brief-box">
-          <div class="brief-text"><span id="typed"></span><span class="caret"></span></div>
-          <div class="count" id="count">0/2000</div>
-        </div>
-
-        <div class="gen" id="gen">Generate Storyboard</div>
       </div>
 
       <div class="composer">
         <div class="cpill"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#d8d8d8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <div class="cpill"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/></svg> Tools</div>
-        <div class="cpill amber">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#d6ab68" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#d6ab68" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          AMBER Creative Strategist <span class="x">&#10005;</span>
-        </div>
+        <div class="cpill cm"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg> CM Brain <span class="x">&#10005;</span></div>
         <div class="cpill sel">Sonnet 4.6 <span class="chev">&#9662;</span></div>
         <div class="csend"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
 
-      <svg id="cursor" viewBox="0 0 24 24" fill="none">
-        <path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#fff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/>
-      </svg>
+      <!-- Right doc -->
+      <div class="doc" id="doc">
+        <svg class="x" viewBox="0 0 24 24" fill="none"><path d="M6 6 L18 18 M18 6 L6 18" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="export"><svg viewBox="0 0 24 24" fill="none"><path d="M12 16 V4 M8 8 L12 4 L16 8" stroke="#e6e6e6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14 V19 a1 1 0 0 0 1 1 H18 a1 1 0 0 0 1-1 V14" stroke="#e6e6e6" stroke-width="1.8" stroke-linecap="round"/></svg> Export</div>
+        <h2>PEPSI SUMMER 2026 &middot; BALLPARK BUDGET</h2>
+        <div class="credit">Conscious Minds / Wonder</div>
+        <div class="pepsi">
+          <svg class="globe" viewBox="0 0 100 100">
+            <defs>
+              <radialGradient id="pg" cx="42%" cy="38%" r="70%">
+                <stop offset="0%" stop-color="#f4f4f4"/><stop offset="55%" stop-color="#c2c2c2"/><stop offset="100%" stop-color="#8a8a8a"/>
+              </radialGradient>
+            </defs>
+            <circle cx="50" cy="50" r="46" fill="url(#pg)"/>
+            <path d="M4 54 Q30 40 50 48 Q72 57 96 44 L96 60 Q72 72 50 62 Q30 54 4 66 Z" fill="#fafafa"/>
+          </svg>
+          <div class="word">PEPSI</div>
+        </div>
+      </div>
+
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      const fullText = "A bold, sun-soaked summer film for Pepsi that captures the feeling of long days, real connection and unforgettable moments. Fast-paced, music-driven, and full of movement — from city streets to open water. Show a diverse group of friends chasing the best kind of summer, with Pepsi at the center of every moment. Leave viewers with an irresistible urge to grab a Pepsi and make their own story.";
-      const typed = document.getElementById("typed");
-      const count = document.getElementById("count");
-      const proxy = { n: 0 };
+      // 1) You question + answer build on (number + text cascade)
+      tl.from("#you", { opacity: 0, y: 20, duration: 0.45, ease: "power3.out" }, 0.2);
+      tl.from(".ans .bd", {
+        opacity: 0, y: 30, filter: "blur(6px)",
+        duration: 0.5, ease: "power3.out", stagger: 0.16,
+      }, 0.55);
 
-      // Brief builds in (0.3s–3.6s)
-      tl.to(proxy, {
-        n: fullText.length, duration: 3.3, ease: "none",
-        onUpdate() {
-          const k = Math.round(proxy.n);
-          typed.textContent = fullText.slice(0, k);
-          count.textContent = k + "/2000";
-        },
-      }, 0.3);
-
-      // Cursor flies to "Generate Storyboard" and clicks
-      const cursor = document.getElementById("cursor");
-      gsap.set(cursor, { left: 1070, top: 852 });
-      tl.fromTo(cursor,
-        { x: 220, y: 150, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 3.9);
-
-      // Button press
-      tl.to("#gen", { scale: 0.97, backgroundColor: "#d2d2d2", duration: 0.12, ease: "power2.in" }, 4.95);
-      tl.to("#gen", { scale: 1, backgroundColor: "#ededed", duration: 0.2, ease: "power2.out" }, 5.07);
+      // 2) Budget doc slides in quick from the right
+      tl.from("#doc", { x: 1000, duration: 0.55, ease: "power3.out" }, 2.05);
 
       window.__timelines["main"] = tl;
     </script>
