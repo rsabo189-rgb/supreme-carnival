@@ -66,11 +66,8 @@
       .doc h2 { position: absolute; left: 70px; top: 350px; width: 760px; font-size: 66px; font-weight: 700;
         letter-spacing: 0.5px; line-height: 1.12; }
       .doc .credit { position: absolute; left: 72px; top: 560px; font-size: 32px; color: #9a9a9a; }
-      .pepsi { position: absolute; left: 70px; bottom: 100px; display: flex; align-items: center; gap: 24px; }
-      .pepsi .globe { width: 132px; height: 132px; }
-      .pepsi .word { font-size: 110px; font-weight: 900; font-style: italic; letter-spacing: -3px;
-        background: linear-gradient(180deg, #f0f0f0 0%, #bdbdbd 45%, #8f8f8f 100%);
-        -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .pepsi { position: absolute; left: 70px; bottom: 96px; }
+      .pepsi .logo-full { width: 460px; height: auto; display: block; }
 
       #cursor { position: absolute; left: 0; top: 0; width: 44px; height: 44px; opacity: 0; pointer-events: none; }
     </style>
@@ -123,16 +120,7 @@
         <h2>PEPSI SUMMER 2026 &middot; BALLPARK BUDGET</h2>
         <div class="credit">Conscious Minds / Wonder</div>
         <div class="pepsi">
-          <svg class="globe" viewBox="0 0 100 100">
-            <defs>
-              <radialGradient id="pg" cx="42%" cy="38%" r="70%">
-                <stop offset="0%" stop-color="#f4f4f4"/><stop offset="55%" stop-color="#c2c2c2"/><stop offset="100%" stop-color="#8a8a8a"/>
-              </radialGradient>
-            </defs>
-            <circle cx="50" cy="50" r="46" fill="url(#pg)"/>
-            <path d="M4 54 Q30 40 50 48 Q72 57 96 44 L96 60 Q72 72 50 62 Q30 54 4 66 Z" fill="#fafafa"/>
-          </svg>
-          <div class="word">PEPSI</div>
+          <img class="logo-full" src="./assets/pepsi.png" alt="Pepsi" />
         </div>
       </div>
 
