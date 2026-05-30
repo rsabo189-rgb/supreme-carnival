@@ -53,7 +53,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="3" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
 
       <div class="heading"><span id="typed"></span><span class="caret"></span></div>
 
@@ -100,11 +100,11 @@
       const typed = document.getElementById("typed");
       const proxy = { n: 0 };
 
-      // 0.1s–2.7s: type the heading one character at a time
+      // 0.2s–3.0s: type the heading, then hold to 5s
       tl.to(proxy, {
-        n: fullText.length, duration: 2.6, ease: "none",
+        n: fullText.length, duration: 2.8, ease: "none",
         onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-      }, 0.1);
+      }, 0.2);
 
       window.__timelines["main"] = tl;
     </script>
