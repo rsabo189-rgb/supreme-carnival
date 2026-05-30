@@ -7,70 +7,53 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #0a0a0a;
+        width: 1920px; height: 1080px; overflow: hidden; background: #050505;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
       #root { position: relative; }
 
-      .sidebar { position: absolute; left: 0; top: 0; width: 138px; height: 1080px;
-        border-right: 1px solid rgba(255,255,255,0.07); }
-      .logo { position: absolute; left: 16px; top: 40px; width: 104px; mix-blend-mode: lighten; }
-      .avatar { position: absolute; left: 26px; bottom: 30px; width: 50px; height: 50px; border-radius: 50%;
+      .sidebar { position: absolute; left: 0; top: 0; width: 230px; height: 1080px;
+        border-right: 1px solid rgba(255,255,255,0.08); }
+      .logo { position: absolute; left: 26px; top: 40px; width: 168px; mix-blend-mode: lighten; }
+      .avatar { position: absolute; left: 56px; bottom: 40px; width: 64px; height: 64px; border-radius: 50%;
         border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;
-        font-size: 21px; color: #cfcfcf; }
+        font-size: 27px; color: #cfcfcf; }
 
-      /* Left column */
-      .you { position: absolute; left: 185px; top: 168px; display: flex; gap: 22px; }
-      .you .av { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.25);
-        display: flex; align-items: center; justify-content: center; font-size: 20px; color: #ddd; flex: none; }
-      .you .bub { background: #1c1c1c; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
-        padding: 18px 26px; }
-      .you .lbl { font-size: 24px; color: #8c8c8c; margin-bottom: 8px; }
-      .you .q { font-size: 30px; color: #ededed; }
+      .main { position: absolute; left: 292px; top: 44px; right: 80px; }
+      .doc-title { font-size: 27px; letter-spacing: 3px; color: #8a8a8a; margin-bottom: 18px;
+        text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.14); padding-bottom: 20px; }
 
-      .ans { position: absolute; left: 185px; top: 320px; width: 680px; }
-      .brand { display: flex; align-items: center; gap: 16px; font-size: 30px; color: #d0d0d0; margin-bottom: 26px; }
-      .brand svg { width: 40px; height: 40px; }
-      .num { font-size: 78px; font-weight: 700; letter-spacing: -1px; margin-bottom: 14px; }
-      .cont { font-size: 34px; color: #c4c4c4; margin-bottom: 30px; }
-      .note { font-size: 30px; font-style: italic; color: #8f8f8f; margin-bottom: 34px; }
-      .chip { display: inline-flex; align-items: center; gap: 18px; border: 1px solid rgba(255,255,255,0.14);
-        border-radius: 12px; padding: 18px 24px; font-size: 28px; color: #d6d6d6; }
-      .chip .dia { width: 30px; height: 30px; }
-      .chip .ext { width: 26px; height: 26px; opacity: 0.7; }
-      .chip .meta { color: #8a8a8a; }
-      .acts { display: flex; gap: 34px; margin-top: 34px; }
-      .acts svg { width: 32px; height: 32px; stroke: #7d7d7d; }
+      .row { display: flex; justify-content: space-between; align-items: center;
+        padding: 26px 4px; border-bottom: 1px solid rgba(255,255,255,0.09);
+        font-size: 42px; color: #f0f0f0; }
+      .row .amt { font-variant-numeric: tabular-nums; }
 
-      /* Composer */
-      .composer { position: absolute; left: 162px; top: 922px; width: 750px; height: 132px;
-        border: 1px solid #2f6bff; border-radius: 18px; display: flex; align-items: center; gap: 18px; padding: 0 26px; }
-      .cpill { display: inline-flex; align-items: center; gap: 12px; font-size: 27px; color: #d8d8d8; }
-      .cpill svg { width: 26px; height: 26px; }
-      .cm { background: #1f72ff; border-radius: 10px; padding: 14px 18px; color: #fff; }
-      .cm .x { margin-left: 4px; opacity: 0.9; }
-      .sel { margin-left: auto; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; padding: 14px 18px; }
-      .chev { font-size: 19px; opacity: 0.7; }
-      .csend { width: 56px; height: 56px; border-radius: 50%; background: #ef5f1c; display: inline-flex; align-items: center; justify-content: center; }
-      .csend svg { width: 28px; height: 28px; }
+      .subrow { display: flex; justify-content: space-between; align-items: flex-end;
+        margin-top: 30px; }
+      .sub-l { display: flex; flex-direction: column; gap: 8px; }
+      .sub-l .t { font-size: 60px; font-weight: 700; }
+      .sub-l .note { font-size: 27px; font-style: italic; color: #8a8a8a; }
+      .gl { display: inline-block; }
+      .sub-amt { font-size: 92px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
 
-      /* Right doc */
-      .doc { position: absolute; left: 950px; top: 66px; width: 905px; height: 948px;
-        background: linear-gradient(160deg, #161616 0%, #0e0e0e 60%); border: 1px solid rgba(255,255,255,0.09);
-        border-radius: 22px; overflow: hidden; }
-      .doc .x { position: absolute; right: 196px; top: 40px; width: 40px; height: 40px; }
-      .export { position: absolute; right: 40px; top: 36px; display: inline-flex; align-items: center; gap: 14px;
-        border: 1px solid rgba(255,255,255,0.16); border-radius: 12px; padding: 16px 24px; font-size: 28px; color: #e6e6e6; }
-      .export svg { width: 28px; height: 28px; }
-      .doc h2 { position: absolute; left: 70px; top: 350px; width: 760px; font-size: 66px; font-weight: 700;
-        letter-spacing: 0.5px; line-height: 1.12; }
-      .doc .credit { position: absolute; left: 72px; top: 560px; font-size: 32px; color: #9a9a9a; }
-      .pepsi { position: absolute; left: 70px; bottom: 90px;
-        background: #ffffff; border-radius: 18px; padding: 26px 40px; }
-      .pepsi .logo-full { width: 400px; height: auto; display: block; }
+      .acts { display: flex; gap: 34px; margin-top: 30px; }
+      .acts svg { width: 34px; height: 34px; stroke: #7d7d7d; }
 
-      #cursor { position: absolute; left: 0; top: 0; width: 44px; height: 44px; opacity: 0; pointer-events: none; }
+      .composer { position: absolute; left: 292px; right: 80px; bottom: 40px; height: 330px;
+        border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; }
+      .crow { position: absolute; left: 34px; right: 34px; bottom: 30px; display: flex; align-items: center; gap: 24px; }
+      .cpill { display: inline-flex; align-items: center; gap: 16px; height: 80px; padding: 0 28px;
+        border-radius: 14px; border: 1px solid rgba(255,255,255,0.16); font-size: 33px; color: #e6e6e6; }
+      .cpill svg { width: 34px; height: 34px; }
+      .icon-btn { width: 80px; padding: 0; justify-content: center; font-size: 46px; font-weight: 300; }
+      .cm { background: #1f72ff; border-color: #1f72ff; color: #fff; font-weight: 600; }
+      .cm .x { margin-left: 6px; opacity: 0.9; }
+      .sel { margin-left: auto; }
+      .chev { font-size: 22px; opacity: 0.7; }
+
+      /* Glitch styling: each animated text gets RGB split via custom props */
+      .gl { position: relative; display: inline-block; }
     </style>
   </head>
   <body>
@@ -81,23 +64,24 @@
         <div class="avatar">W</div>
       </div>
 
-      <!-- Left answer -->
-      <div class="you" id="you">
-        <div class="av">W</div>
-        <div class="bub"><div class="lbl">You</div><div class="q">What&rsquo;s our estimated total budget?</div></div>
-      </div>
+      <div class="main">
+        <div class="doc-title gl" data-final="PEPSI SUMMER 2026 · BALLPARK BUDGET">PEPSI SUMMER 2026 · BALLPARK BUDGET</div>
 
-      <div class="ans">
-        <div class="brand bd"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#d0d0d0" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#d0d0d0" stroke-width="1.5" stroke-linejoin="round"/></svg> CM Brain</div>
-        <div class="num bd">$419,500 &ndash; $461,450</div>
-        <div class="cont bd">Base + 10% contingency</div>
-        <div class="note bd">All figures are planning estimates, not final bids.</div>
-        <div class="bd"><div class="chip">
-          <svg class="dia" viewBox="0 0 24 24" fill="none"><path d="M12 3 L21 12 L12 21 L3 12 Z" stroke="#d6d6d6" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          Pepsi Summer 2026 Ballpark Budget <span class="meta">&middot; PDF &middot;</span>
-          <svg class="ext" viewBox="0 0 24 24" fill="none"><path d="M14 4 H20 V10 M20 4 L11 13 M18 14 V19 a1 1 0 0 1-1 1 H5 a1 1 0 0 1-1-1 V7 a1 1 0 0 1 1-1 H10" stroke="#9a9a9a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div></div>
-        <div class="acts bd">
+        <div class="row"><span class="gl" data-final="Production">Production</span><span class="amt gl" data-final="$187,500">$187,500</span></div>
+        <div class="row"><span class="gl" data-final="Post Production">Post Production</span><span class="amt gl" data-final="$94,000">$94,000</span></div>
+        <div class="row"><span class="gl" data-final="Talent">Talent</span><span class="amt gl" data-final="$62,000">$62,000</span></div>
+        <div class="row"><span class="gl" data-final="Casting">Casting</span><span class="amt gl" data-final="$28,000">$28,000</span></div>
+        <div class="row" style="border-bottom:2px solid rgba(255,255,255,0.4)"><span class="gl" data-final="Travel + Logistics">Travel + Logistics</span><span class="amt gl" data-final="$48,000">$48,000</span></div>
+
+        <div class="subrow">
+          <div class="sub-l">
+            <div class="t gl" data-final="Subtotal">Subtotal</div>
+            <div class="note gl" data-final="Base estimate · +10% contingency available">Base estimate · +10% contingency available</div>
+          </div>
+          <div class="sub-amt gl" data-final="$419,500">$419,500</div>
+        </div>
+
+        <div class="acts">
           <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2" stroke="#7d7d7d" stroke-width="1.5"/><path d="M16 8 V6 a2 2 0 0 0-2-2 H6 a2 2 0 0 0-2 2 V14 a2 2 0 0 0 2 2 H8" stroke="#7d7d7d" stroke-width="1.5"/></svg>
           <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#7d7d7d" stroke-width="1.5" stroke-linejoin="round"/></svg>
           <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#7d7d7d" stroke-width="1.5" stroke-linejoin="round"/></svg>
@@ -107,21 +91,11 @@
       </div>
 
       <div class="composer">
-        <div class="cpill"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#d8d8d8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div class="cpill"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#d8d8d8" stroke-width="1.7"/></svg> Tools</div>
-        <div class="cpill cm"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg> CM Brain <span class="x">&#10005;</span></div>
-        <div class="cpill sel">Sonnet 4.6 <span class="chev">&#9662;</span></div>
-        <div class="csend"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-
-      <!-- Right doc -->
-      <div class="doc" id="doc">
-        <svg class="x" viewBox="0 0 24 24" fill="none"><path d="M6 6 L18 18 M18 6 L6 18" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <div class="export"><svg viewBox="0 0 24 24" fill="none"><path d="M12 16 V4 M8 8 L12 4 L16 8" stroke="#e6e6e6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 14 V19 a1 1 0 0 0 1 1 H18 a1 1 0 0 0 1-1 V14" stroke="#e6e6e6" stroke-width="1.8" stroke-linecap="round"/></svg> Export</div>
-        <h2>PEPSI SUMMER 2026 &middot; BALLPARK BUDGET</h2>
-        <div class="credit">Conscious Minds / Wonder</div>
-        <div class="pepsi">
-          <img class="logo-full" src="./assets/pepsi.png" alt="Pepsi" />
+        <div class="crow">
+          <div class="cpill icon-btn">+</div>
+          <div class="cpill"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#e6e6e6" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#e6e6e6" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#e6e6e6" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#e6e6e6" stroke-width="1.7"/></svg> Tools</div>
+          <div class="cpill cm"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg> CM Brain <span class="x">&#10005;</span></div>
+          <div class="cpill sel">Sonnet 4.6 <span class="chev">&#9662;</span></div>
         </div>
       </div>
 
@@ -131,15 +105,60 @@
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // 1) You question + answer build on (number + text cascade)
-      tl.from("#you", { opacity: 0, y: 20, duration: 0.45, ease: "power3.out" }, 0.2);
-      tl.from(".ans .bd", {
-        opacity: 0, y: 30, filter: "blur(6px)",
-        duration: 0.5, ease: "power3.out", stagger: 0.16,
-      }, 0.55);
+      const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#%&*+=/<>";
+      // deterministic pseudo-random from two ints
+      function rnd(a, b) {
+        let h = (a * 73856093) ^ (b * 19349663);
+        h = (h ^ (h >>> 13)) * 1274126177;
+        return ((h >>> 0) % 1000) / 1000;
+      }
 
-      // 2) Budget doc slides in quick from the right
-      tl.from("#doc", { x: 1000, duration: 0.55, ease: "power3.out" }, 2.05);
+      const els = gsap.utils.toArray(".gl");
+
+      els.forEach((el, idx) => {
+        const finalText = el.getAttribute("data-final");
+        const isAmount = el.classList.contains("amt") || el.classList.contains("sub-amt");
+        const st = 0.25 + idx * 0.2;          // staggered glitch-in
+        const dur = 0.62;
+        const p = { v: 0 };
+
+        // set initial state: offset + heavy RGB split
+        gsap.set(el, { opacity: 0 });
+
+        tl.to(p, {
+          v: 1, duration: dur, ease: "power2.out",
+          onStart() { el.style.opacity = 1; },
+          onUpdate() {
+            const prog = p.v;
+            // 1) character scramble that resolves left->right
+            const reveal = Math.floor(prog * finalText.length * 1.25);
+            const tick = Math.floor(prog * 18); // scramble churn
+            let out = "";
+            for (let i = 0; i < finalText.length; i++) {
+              const ch = finalText[i];
+              if (ch === " " || i < reveal) { out += ch; }
+              else { out += GLYPHS[Math.floor(rnd(idx * 97 + i, tick) * GLYPHS.length)]; }
+            }
+            el.textContent = out;
+
+            // 2) RGB channel split + slice jitter, decaying with progress
+            const amp = (1 - prog);
+            const jx = (rnd(idx, tick) - 0.5) * 26 * amp;
+            const r = 9 * amp, c = 9 * amp;
+            el.style.transform = "translateX(" + (jx) + "px)";
+            el.style.textShadow =
+              (r) + "px 0 rgba(255,40,60,0.9), " + (-c) + "px 0 rgba(0,220,255,0.9)";
+            // 3) occasional opacity flicker early on
+            el.style.opacity = (prog < 0.85 && rnd(tick, idx) > 0.82) ? 0.45 : 1;
+          },
+          onComplete() {
+            el.textContent = finalText;
+            el.style.transform = "translateX(0)";
+            el.style.textShadow = "none";
+            el.style.opacity = 1;
+          },
+        }, st);
+      });
 
       window.__timelines["main"] = tl;
     </script>
