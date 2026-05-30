@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# AI agent skills (re-installable via: npx skills add heygen-com/hyperframes)
+.agents/
+
+# Rendered video output (generated artifacts)
+renders/
+
+# OS / editor cruft
+.DS_Store
+*.log
