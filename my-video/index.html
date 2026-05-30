@@ -7,127 +7,104 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #000000;
+        width: 1920px; height: 1080px; overflow: hidden; background: #0a0a0a;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
-      #root { display: flex; align-items: center; justify-content: center; }
+      #root { position: relative; }
 
-      .box {
-        width: 1850px;
-        border: 2px solid #2f6bff;
-        border-radius: 26px;
-        background: #0a0a0a;
-        padding: 50px 52px 44px;
-      }
-      .prompt-text {
-        font-size: 98px; font-weight: 500; letter-spacing: -1px; color: #fff;
-        white-space: pre; min-height: 120px; margin-bottom: 44px;
+      .heading {
+        position: absolute; left: 110px; top: 120px; width: 1640px;
+        font-size: 104px; line-height: 1.14; font-weight: 500; letter-spacing: -1.5px;
+        color: #fff; min-height: 360px;
       }
       .caret {
-        display: inline-block; width: 4px; height: 0.92em; background: #fff;
-        vertical-align: -0.1em; margin-left: 6px;
-        animation: blink 1.06s steps(1, end) infinite;
+        display: inline-block; width: 4px; height: 0.86em; background: #fff;
+        vertical-align: -0.08em; margin-left: 8px;
+        animation: blink 1.0s steps(1, end) infinite;
       }
       @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
 
-      .toolbar { display: flex; align-items: center; gap: 22px; }
-      .pill {
-        display: inline-flex; align-items: center; gap: 16px;
-        height: 88px; padding: 0 32px; border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.16); color: #f2f2f2;
-        font-size: 36px; font-weight: 500; white-space: nowrap;
+      .options {
+        position: absolute; left: 112px; top: 760px;
+        display: flex; gap: 150px;
       }
-      .pill svg { width: 38px; height: 38px; flex: none; }
-      .icon-btn { width: 92px; padding: 0; justify-content: center; font-size: 52px; font-weight: 300; }
-      .cm {
-        background: #1f72ff; border-color: #1f72ff; color: #fff; font-weight: 600;
+      .opt {
+        display: inline-flex; align-items: center; gap: 26px;
+        font-size: 44px; color: #8c8c8c; font-weight: 400;
       }
-      .cm .x { font-size: 34px; opacity: 0.9; margin-left: 8px; }
-      .chev { font-size: 26px; opacity: 0.7; }
-      .spacer { margin-left: auto; }
-      .send {
-        width: 96px; height: 96px; border-radius: 50%; background: #f0531a;
-        display: inline-flex; align-items: center; justify-content: center; flex: none;
-      }
-      .send svg { width: 46px; height: 46px; }
+      .opt svg { width: 46px; height: 46px; flex: none; stroke: #8c8c8c; }
 
-      #cursor {
-        position: absolute; left: 0; top: 0; width: 46px; height: 46px;
-        opacity: 0; pointer-events: none;
-        filter: drop-shadow(0 3px 7px rgba(0,0,0,0.75));
+      .composer {
+        position: absolute; left: 110px; right: 110px; bottom: 70px;
+        height: 132px; border: 1px solid rgba(255,255,255,0.12); border-radius: 22px;
+        display: flex; align-items: center; gap: 32px; padding: 0 40px;
       }
+      .strat {
+        display: inline-flex; align-items: center; gap: 20px;
+        border: 1px solid #d4831f; border-radius: 14px; padding: 18px 26px;
+        color: #e0902f; font-size: 38px; font-weight: 500;
+      }
+      .strat svg { width: 38px; height: 38px; flex: none; }
+      .strat .chev { font-size: 26px; opacity: 0.85; }
+      .placeholder { font-size: 40px; color: #5c5c5c; }
+      .clip { margin-left: auto; }
+      .clip svg { width: 44px; height: 44px; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="3" data-width="1920" data-height="1080">
-      <div class="box">
-        <div class="prompt-text"><span id="typed"></span><span class="caret"></span></div>
 
-        <div class="toolbar">
-          <div class="pill icon-btn">+</div>
-          <div class="pill">
-            <svg viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-              <rect x="14" y="3" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-              <rect x="3" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-              <rect x="14" y="14" width="7" height="7" rx="1.4" stroke="#fff" stroke-width="1.7"/>
-            </svg>
-            Tools
-          </div>
-          <div class="pill cm">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
-            </svg>
-            CM Creative <span class="x">&#10005;</span>
-          </div>
+      <div class="heading"><span id="typed"></span><span class="caret"></span></div>
 
-          <div class="pill spacer">Sonnet 4.6 <span class="chev">&#9662;</span></div>
-          <div class="send" id="send">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M12 19 V5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>
-              <path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+      <div class="options">
+        <div class="opt">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 6 C10 4.5 6 4.5 4 5 V19 C6 18.5 10 18.5 12 20 C14 18.5 18 18.5 20 19 V5 C18 4.5 14 4.5 12 6 Z" stroke="#8c8c8c" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M12 6 V20" stroke="#8c8c8c" stroke-width="1.5"/>
+          </svg>
+          Guide me through it
+        </div>
+        <div class="opt">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M13 2 L4 14 H11 L10 22 L20 9 H12 Z" stroke="#8c8c8c" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          Take a first stab
         </div>
       </div>
 
-      <svg id="cursor" viewBox="0 0 24 24" fill="none">
-        <path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#fff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/>
-      </svg>
+      <div class="composer">
+        <div class="strat">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2 L15 9 L12 14 L9 9 Z" stroke="#e0902f" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M12 14 V20" stroke="#e0902f" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="12" cy="9" r="1.1" fill="#e0902f"/>
+          </svg>
+          Creative Strategist <span class="chev">&#9662;</span>
+        </div>
+        <div class="placeholder">Message...</div>
+        <div class="clip">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M20 11 L11.5 19.5 a4 4 0 0 1-6-6 L14 5 a2.7 2.7 0 0 1 4 4 L9.5 17.5 a1.4 1.4 0 0 1-2-2 L15 8" stroke="#9a9a9a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      const fullText = "Make it presentable.";
+      const fullText = "Before I dig in, how do you want to work on this?";
       const typed = document.getElementById("typed");
       const proxy = { n: 0 };
 
-      // 0.15s–1.65s: type the prompt one character at a time
+      // 0.1s–2.7s: type the heading one character at a time
       tl.to(proxy, {
-        n: fullText.length, duration: 1.5, ease: "none",
+        n: fullText.length, duration: 2.6, ease: "none",
         onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-      }, 0.15);
-
-      // Rest the cursor tip on the orange send button (fixed to rendered layout)
-      const cursor = document.getElementById("cursor");
-      gsap.set(cursor, { left: 1776, top: 628 });
-
-      // 1.75s–2.4s: cursor flies in from lower-right and lands on send
-      tl.fromTo(cursor,
-        { x: 90, y: 240, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 0.65, ease: "power3.out" }, 1.75);
-
-      // 2.45s: press + orange glow
-      tl.to("#send", { scale: 0.93, duration: 0.1, ease: "power2.in" }, 2.45);
-      tl.to("#send", { scale: 1, duration: 0.16, ease: "power2.out" }, 2.55);
-      tl.to("#send", {
-        boxShadow: "0 0 0 5px rgba(240,83,26,0.32), 0 0 44px rgba(240,83,26,0.6)",
-        duration: 0.2, ease: "power2.out",
-      }, 2.45);
+      }, 0.1);
 
       window.__timelines["main"] = tl;
     </script>
