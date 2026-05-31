@@ -13,56 +13,38 @@
       }
       #root { position: relative; }
 
-      .sidebar { position: absolute; left: 0; top: 0; width: 116px; height: 1080px;
-        border-right: 1px solid rgba(255,255,255,0.07); }
-      .logo { position: absolute; left: 28px; top: 36px; width: 56px; mix-blend-mode: lighten; }
-      .sic { position: absolute; left: 42px; width: 30px; height: 30px; }
-      .sic svg { width: 30px; height: 30px; stroke: #9a9a9a; }
-      .avatar { position: absolute; left: 34px; bottom: 36px; width: 44px; height: 44px; border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;
-        font-size: 19px; color: #cfcfcf; }
+      .msg { position: absolute; left: 500px; top: 80px; width: 940px; }
+      .h2 { font-size: 27px; font-weight: 700; margin: 0 0 14px; }
+      .p { font-size: 25px; line-height: 1.36; color: #c4c4c4; margin-bottom: 14px; }
+      .sec { font-size: 25px; font-weight: 700; color: #f2f2f2; margin: 20px 0 10px; }
+      .kv { font-size: 25px; line-height: 1.42; color: #bdbdbd; }
+      .kv b { color: #f2f2f2; }
+      .li { font-size: 24px; line-height: 1.36; color: #bdbdbd; padding-left: 32px; position: relative; margin-bottom: 11px; }
+      .li::before { content: "•"; position: absolute; left: 6px; color: #888; }
+      .li b { color: #f2f2f2; }
+      .strong { color: #f2f2f2; font-weight: 700; }
 
-      .msg { position: absolute; left: 530px; top: 24px; width: 1010px; }
-      .h2 { font-size: 31px; font-weight: 700; margin: 0 0 18px; }
-      .p { font-size: 28px; line-height: 1.38; color: #c9c9c9; margin-bottom: 18px; }
-      .sec { font-size: 29px; font-weight: 700; color: #f0f0f0; margin: 22px 0 12px; }
-      .kv { font-size: 28px; line-height: 1.46; color: #c4c4c4; }
-      .kv b { color: #f0f0f0; }
-      .li { font-size: 27px; line-height: 1.38; color: #c4c4c4; padding-left: 36px; position: relative; margin-bottom: 12px; }
-      .li::before { content: "•"; position: absolute; left: 8px; color: #888; }
-      .li b { color: #f0f0f0; }
-      .strong { color: #f0f0f0; font-weight: 700; }
-
-      .chev { position: absolute; left: 50%; top: 776px; transform: translateX(-50%);
-        width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.06);
+      .chev { position: absolute; left: 936px; top: 700px;
+        width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.06);
         border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; }
-      .chev svg { width: 32px; height: 32px; stroke: #b9b9b9; }
+      .chev svg { width: 28px; height: 28px; stroke: #b9b9b9; }
 
-      .composer { position: absolute; left: 500px; top: 858px; width: 1100px; height: 250px;
+      .composer { position: absolute; left: 500px; top: 800px; width: 940px; height: 230px;
         border: 1px solid rgba(255,255,255,0.1); border-radius: 22px; }
-      .ph { position: absolute; left: 36px; top: 42px; font-size: 31px; color: #5c5c5c; }
-      .crow { position: absolute; left: 30px; right: 30px; bottom: 26px; display: flex; align-items: center; gap: 38px; }
-      .ci { display: inline-flex; align-items: center; gap: 14px; font-size: 29px; color: #cfcfcf; }
-      .ci svg { width: 28px; height: 28px; }
+      .ph { position: absolute; left: 32px; top: 38px; font-size: 30px; color: #5c5c5c; }
+      .crow { position: absolute; left: 26px; right: 26px; bottom: 24px; display: flex; align-items: center; gap: 32px; }
+      .ci { display: inline-flex; align-items: center; gap: 12px; font-size: 27px; color: #cfcfcf; }
+      .ci svg { width: 26px; height: 26px; }
       .ci.bb { color: #6ea8ff; }
-      .ci.bb .x { color: #8c8c93; margin-left: 8px; }
+      .ci.bb .x { color: #8c8c93; margin-left: 6px; }
       .ci.model { margin-left: auto; }
-      .send { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.08);
+      .send { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.08);
         display: inline-flex; align-items: center; justify-content: center; }
-      .send svg { width: 28px; height: 28px; }
-      .foot { position: absolute; left: 500px; width: 1100px; top: 1044px; text-align: center;
-        font-size: 23px; color: #5a5a5a; }
+      .send svg { width: 26px; height: 26px; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
-
-      <div class="sidebar">
-        <img class="logo" src="./assets/wonder-logo.png" alt="W" />
-        <div class="sic" style="top:138px"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#9a9a9a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <div class="sic" style="top:196px"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9a9a9a" stroke-width="1.7"/><path d="M16 16 L21 21" stroke="#9a9a9a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-        <div class="avatar">R</div>
-      </div>
 
       <div class="msg">
         <div class="h2 c">Lifestyle Product Ad for PepsiCo</div>
@@ -92,7 +74,6 @@
           <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
-      <div class="foot">All figures are ballpark estimates, not final bids.</div>
     </div>
 
     <script>
@@ -104,7 +85,6 @@
         opacity: 0, y: -22, duration: 0.45, ease: "power3.out", stagger: 0.16,
       }, 0.2);
 
-      // chevron fades in at the end
       tl.from(".chev", { opacity: 0, y: -10, duration: 0.4 }, "+=0.1");
 
       window.__timelines["main"] = tl;
