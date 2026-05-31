@@ -7,138 +7,73 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #060606;
+        width: 1920px; height: 1080px; overflow: hidden; background: #050505;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
-      #root { position: relative; width: 1920px; height: 1080px; }
-      .bg { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+      #root { position: relative; }
 
-      /* Form panel overlaid on the baked-in background */
-      .panel { position: absolute; left: 50%; transform: translateX(-50%); top: 322px; width: 1130px;
-        border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; background: rgba(14,14,16,0.72);
-        backdrop-filter: blur(6px); padding: 30px 34px; }
-      .selrow { display: flex; gap: 22px; margin-bottom: 22px; }
-      .sel { flex: 1; height: 62px; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
-        display: flex; align-items: center; gap: 14px; padding: 0 22px; font-size: 24px; color: #d2d2d2; }
-      .sel .chev { margin-left: auto; opacity: 0.6; }
-      .sel svg { width: 24px; height: 24px; }
-      .title-in { height: 64px; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
-        display: flex; align-items: center; gap: 16px; padding: 0 24px; font-size: 25px; color: #6a6a6a; margin-bottom: 22px; }
-      .title-in .aa { color: #9a9a9a; font-weight: 600; }
+      .msg { position: absolute; left: 456px; top: 34px; width: 1090px; }
+      .p { font-size: 26px; line-height: 1.36; color: #c9c9c9; margin-bottom: 16px; }
+      .p .w { color: #f2f2f2; font-weight: 700; }
+      .sec { font-size: 25px; font-weight: 700; letter-spacing: 0.5px; color: #f2f2f2; margin: 20px 0 9px; }
+      .li { font-size: 25px; line-height: 1.36; color: #c4c4c4; padding-left: 38px; position: relative; margin-bottom: 9px; }
+      .li::before { content: "•"; position: absolute; left: 14px; color: #888; }
+      .li b { color: #f2f2f2; font-weight: 700; }
+      .strong { color: #f2f2f2; font-weight: 700; }
+      .spacer { height: 8px; }
 
-      /* Brief: text area sits ABOVE the Improve button row, never overlaps it */
-      .brief { height: 232px; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
-        position: relative; display: flex; flex-direction: column; }
-      .btext { flex: 1; font-size: 24px; line-height: 1.42; color: #d2d2d2; padding: 24px 28px 0;
-        overflow: hidden; }
-      .improve-row { height: 74px; flex: none; display: flex; align-items: center; justify-content: flex-end;
-        padding: 0 22px 16px; }
-      .improve { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 13px 22px; font-size: 23px;
-        color: #c9b3ff; display: inline-flex; align-items: center; gap: 10px; }
-      .improve svg { width: 22px; height: 22px; }
-      .caret { display: inline-block; width: 3px; height: 0.9em; background: #d2d2d2;
-        vertical-align: -0.08em; margin-left: 3px; opacity: 0; animation: blink 1s steps(1,end) infinite; }
-      @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
-
-      .reflbl { font-size: 22px; color: #7d7d7d; margin: 22px 0 12px; }
-      .drop { height: 104px; border: 1.5px dashed rgba(255,255,255,0.16); border-radius: 14px;
-        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-      .drop .d1 { font-size: 24px; color: #9a9a9a; }
-      .drop .d2 { font-size: 20px; color: #5e5e5e; }
-      .drop.docked { border-style: solid; border-color: rgba(255,255,255,0.18);
-        flex-direction: row; gap: 22px; padding: 0 28px; justify-content: flex-start; }
-      .docked-thumb { width: 78px; height: 86px; border-radius: 10px; overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.18); display: none; }
-      .docked-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-      .docked-name { font-size: 24px; color: #d2d2d2; display: none; }
-
-      .gen { position: absolute; left: 50%; transform: translateX(-50%); top: 904px; width: 1130px; height: 84px;
-        border-radius: 16px; background: #1a1a1c; border: 1px solid rgba(255,255,255,0.12);
-        display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 32px; font-weight: 600; }
-      .gen svg { width: 30px; height: 30px; }
-
-      .fall { position: absolute; width: 104px; height: 116px; border-radius: 12px; overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 18px 40px rgba(0,0,0,0.6); opacity: 0; }
-      .fall img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-
-      #cursor { position: absolute; left: 0; top: 0; width: 44px; height: 44px; opacity: 0;
-        pointer-events: none; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.8)); }
+      .acts { position: absolute; left: 456px; top: 1006px; display: flex; gap: 36px; }
+      .acts svg { width: 34px; height: 34px; stroke: #6f6f6f; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
-      <img class="bg" src="./assets/workshop-bg.png" alt="" />
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+      <div class="msg">
+        <div class="p c">Here's a refined brand identity for <span class="w">WONDER</span> built around a custom wordmark and icon that balance curiosity, elegance, and memorability.</div>
 
-      <div class="panel">
-        <div class="selrow">
-          <div class="sel"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7 a1 1 0 0 1 1-1 H9 L11 8 H19 a1 1 0 0 1 1 1 V17 a1 1 0 0 1-1 1 H5 a1 1 0 0 1-1-1 Z" stroke="#d2d2d2" stroke-width="1.5"/></svg> Select Folder <span class="chev">&#9662;</span></div>
-          <div class="sel"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#d2d2d2" stroke-width="1.5"/><path d="M12 8 V12 L15 14" stroke="#d2d2d2" stroke-width="1.5"/></svg> Length: 30 sec <span class="chev">&#9662;</span></div>
-          <div class="sel"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#d2d2d2" stroke-width="1.5"/></svg> Aspect: 16:9 <span class="chev">&#9662;</span></div>
-        </div>
-        <div class="title-in"><span class="aa">Aa</span> Enter storyboard title...</div>
+        <div class="sec c">OVERVIEW</div>
+        <div class="p c">The identity pairs a distinctive logotype with an adaptive icon to create a flexible system for digital, print, and beyond.</div>
 
-        <div class="brief">
-          <div class="btext"><span id="typed"></span><span class="caret" id="caret"></span></div>
-          <div class="improve-row">
-            <div class="improve"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L13.4 9 L19 10.5 L13.4 12 L12 18 L10.6 12 L5 10.5 L10.6 9 Z" fill="#c9b3ff"/></svg> Improve with AI</div>
-          </div>
-        </div>
+        <div class="sec c">WORDMARK</div>
+        <div class="li c">Custom letterforms with organic curves and subtle contrast</div>
+        <div class="li c">The "W" introduces a sense of curiosity and movement</div>
+        <div class="li c">Balanced spacing for clarity and presence</div>
+        <div class="li c"><b>Timeless, mysterious, and distinctly ownable</b></div>
 
-        <div class="reflbl">Reference Files</div>
-        <div class="drop" id="drop">
-          <div class="docked-thumb" id="dthumb"><img src="./assets/pdf.png" alt=""></div>
-          <div class="docked-name" id="dname">pepsi-coachella-brief.pdf</div>
-          <div class="d1" id="d1">Drop files here or click to browse</div>
-          <div class="d2" id="d2">Treatments, scripts, product images, mood boards</div>
-        </div>
+        <div class="sec c">ICON</div>
+        <div class="li c">A monogrammed "W" distilled from the wordmark</div>
+        <div class="li c">Bold, fluid, and instantly recognizable</div>
+        <div class="li c">Works beautifully at any size</div>
+        <div class="li c"><b>Perfect for avatars, stamps, and micro-moments</b></div>
+
+        <div class="sec c">APPLICATIONS</div>
+        <div class="li c"><b>Digital:</b> websites, apps, favicons, social</div>
+        <div class="li c"><b>Print:</b> business cards, packaging, posters</div>
+        <div class="li c"><b>Motion:</b> reveals, transitions, loading states</div>
+        <div class="li c"><b>Brand system:</b> colors, typography, and layouts can scale with this foundation</div>
+
+        <div class="p c" style="margin-top:16px">If you'd like, I can now package this into a full brand presentation with mockups, variants, and guidelines.</div>
       </div>
 
-      <div class="gen" id="gen"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L13.4 9 L19 10.5 L13.4 12 L12 18 L10.6 12 L5 10.5 L10.6 9 Z" fill="#fff"/></svg> Generate Storyboard</div>
-
-      <div class="fall" id="fall"><img src="./assets/pdf.png" alt=""></div>
-      <svg id="cursor" viewBox="0 0 24 24" fill="none"><path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#fff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/></svg>
+      <div class="acts">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#6f6f6f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#6f6f6f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 a8 8 0 0 1 13-6 M20 6 V11 H15 M20 12 a8 8 0 0 1-13 6 M4 18 V13 H9" stroke="#6f6f6f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // 1) brief types in quickly (text clipped above the Improve button)
-      const fullText = "A bold, sun-soaked summer film for Pepsi that captures the feeling of long days, real connection and unforgettable moments. Fast-paced, music-driven, and full of movement — from city streets to open water. Show a diverse group of friends chasing the best kind of summer, with Pepsi at the center of every moment.";
-      const typed = document.getElementById("typed");
-      document.getElementById("caret").style.opacity = 1;
-      const proxy = { n: 0 };
-      tl.to(proxy, {
-        n: fullText.length, duration: 2.2, ease: "none",
-        onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
-      }, 0.3);
+      // Cascade every line down with a rise + soft blur, staggered
+      tl.from(".msg .c", {
+        opacity: 0, y: -22, filter: "blur(5px)",
+        duration: 0.45, ease: "power3.out", stagger: 0.14,
+      }, 0.2);
 
-      // 2) PDF drops into the Reference Files zone (3.0s)
-      const fall = document.getElementById("fall");
-      gsap.set(fall, { left: 1010, top: 560 });
-      tl.fromTo(fall, { y: -240, opacity: 0, rotation: -8, scale: 1.1 },
-        { y: 470, opacity: 1, rotation: 0, scale: 1, duration: 0.75, ease: "power3.in" }, 3.0);
-      tl.set(fall, { opacity: 0 }, 3.78);
-      tl.call(() => {
-        document.getElementById("drop").classList.add("docked");
-        document.getElementById("dthumb").style.display = "block";
-        document.getElementById("dname").style.display = "block";
-        document.getElementById("d1").style.display = "none";
-        document.getElementById("d2").style.display = "none";
-      }, null, 3.78);
-      tl.fromTo("#dthumb", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(2)" }, 3.8);
-      tl.fromTo("#dname", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.3 }, 3.92);
-
-      // 3) cursor flies to Generate Storyboard and presses it
-      const cursor = document.getElementById("cursor");
-      gsap.set(cursor, { left: 1380, top: 926 });
-      tl.fromTo(cursor, { x: 260, y: 130, opacity: 0 },
-        { x: 0, y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 4.7);
-      tl.to("#gen", { boxShadow: "0 0 0 2px rgba(120,110,255,0.7), 0 0 50px rgba(90,80,255,0.5)",
-        borderColor: "rgba(150,140,255,0.8)", duration: 0.3 }, 5.8);
-      tl.to("#gen", { scale: 0.985, duration: 0.12, ease: "power2.in" }, 5.95);
-      tl.to("#gen", { scale: 1, duration: 0.2, ease: "power2.out" }, 6.07);
+      tl.from(".acts svg", { opacity: 0, y: 8, duration: 0.4, stagger: 0.06 }, "-=0.2");
 
       window.__timelines["main"] = tl;
     </script>
