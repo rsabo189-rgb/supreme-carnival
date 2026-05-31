@@ -7,85 +7,130 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #0a0a0a;
+        width: 1920px; height: 1080px; overflow: hidden; background: #080808;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
       #root { position: relative; }
 
-      .msg { position: absolute; left: 500px; top: 80px; width: 940px; }
-      .h2 { font-size: 27px; font-weight: 700; margin: 0 0 14px; }
-      .p { font-size: 25px; line-height: 1.36; color: #c4c4c4; margin-bottom: 14px; }
-      .sec { font-size: 25px; font-weight: 700; color: #f2f2f2; margin: 20px 0 10px; }
-      .kv { font-size: 25px; line-height: 1.42; color: #bdbdbd; }
-      .kv b { color: #f2f2f2; }
-      .li { font-size: 24px; line-height: 1.36; color: #bdbdbd; padding-left: 32px; position: relative; margin-bottom: 11px; }
-      .li::before { content: "•"; position: absolute; left: 6px; color: #888; }
-      .li b { color: #f2f2f2; }
-      .strong { color: #f2f2f2; font-weight: 700; }
+      .sidebar { position: absolute; left: 0; top: 0; width: 122px; height: 1080px;
+        border-right: 1px solid rgba(255,255,255,0.07); }
+      .logo { position: absolute; left: 32px; top: 44px; width: 58px; mix-blend-mode: lighten; }
+      .sic { position: absolute; left: 46px; width: 30px; height: 30px; }
+      .sic svg { width: 30px; height: 30px; stroke: #9a9a9a; }
+      .avatar { position: absolute; left: 40px; bottom: 38px; width: 46px; height: 46px; border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;
+        font-size: 19px; color: #cfcfcf; }
 
-      .chev { position: absolute; left: 936px; top: 700px;
-        width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; }
-      .chev svg { width: 28px; height: 28px; stroke: #b9b9b9; }
+      .msg { position: absolute; left: 378px; top: 60px; width: 1300px; }
+      .p { font-size: 31px; line-height: 1.42; color: #e0e0e0; margin-bottom: 26px; }
+      .p b { font-weight: 700; color: #fff; }
 
-      .composer { position: absolute; left: 500px; top: 800px; width: 940px; height: 230px;
-        border: 1px solid rgba(255,255,255,0.1); border-radius: 22px; }
-      .ph { position: absolute; left: 32px; top: 38px; font-size: 30px; color: #5c5c5c; }
-      .crow { position: absolute; left: 26px; right: 26px; bottom: 24px; display: flex; align-items: center; gap: 32px; }
-      .ci { display: inline-flex; align-items: center; gap: 12px; font-size: 27px; color: #cfcfcf; }
-      .ci svg { width: 26px; height: 26px; }
+      .opts { position: absolute; left: 378px; top: 336px; width: 1300px; }
+      .opt { height: 96px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.02); display: flex; align-items: center; gap: 20px;
+        padding: 0 34px; margin-bottom: 22px; font-size: 33px; color: #c4c4c4; }
+      .opt .ret { font-size: 28px; color: #6f6f6f; }
+      #optVideo { color: #6ea8ff; border-color: rgba(110,168,255,0.5); background: rgba(40,70,140,0.18); }
+      #optVideo .ret { color: #6ea8ff; }
+
+      .acts { position: absolute; left: 378px; top: 668px; display: flex; gap: 36px; }
+      .acts svg { width: 34px; height: 34px; stroke: #6f6f6f; }
+
+      .composer { position: absolute; left: 340px; top: 760px; width: 1380px; height: 296px;
+        border: 1px solid rgba(255,255,255,0.14); border-radius: 24px; }
+      .ptext { position: absolute; left: 40px; top: 56px; right: 40px; font-size: 38px; color: #fff; }
+      .caret { display: inline-block; width: 3px; height: 0.9em; background: #fff;
+        vertical-align: -0.08em; margin-left: 3px; opacity: 0; animation: blink 1s steps(1,end) infinite; }
+      @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+      .crow { position: absolute; left: 30px; right: 30px; bottom: 30px; display: flex; align-items: center; gap: 40px; }
+      .ci { display: inline-flex; align-items: center; gap: 16px; font-size: 32px; color: #cfcfcf; }
+      .ci svg { width: 32px; height: 32px; }
       .ci.bb { color: #6ea8ff; }
-      .ci.bb .x { color: #8c8c93; margin-left: 6px; }
+      .ci.bb .x { color: #8c8c93; margin-left: 8px; }
       .ci.model { margin-left: auto; }
-      .send { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.08);
+      .send { width: 66px; height: 66px; border-radius: 50%; background: #fff;
         display: inline-flex; align-items: center; justify-content: center; }
-      .send svg { width: 26px; height: 26px; }
+      .send svg { width: 30px; height: 30px; }
+
+      #cursor { position: absolute; left: 0; top: 0; width: 46px; height: 46px; opacity: 0;
+        pointer-events: none; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.8)); }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
 
-      <div class="msg">
-        <div class="h2 c">Lifestyle Product Ad for PepsiCo</div>
-        <div class="p c">Great! A lifestyle product ad for PepsiCo is a perfect fit for our capabilities. Here's what I recommend:</div>
-        <div class="sec c">Best-Fit Recommendation</div>
-        <div class="kv c"><b>FILM:</b> Nimble ($85,000) or Nimble+ ($115,000)</div>
-        <div class="kv c"><b>PHOTO:</b> Nimble ($75,000)</div>
-        <div class="kv c"><b>POST:</b> Medium Campaign ($155,000)</div>
-        <div class="sec c">Why This Works</div>
-        <div class="p c">For a lifestyle product ad, you need:</div>
-        <div class="li c"><b>Nimble production</b> offers the agility and creative flexibility to capture authentic lifestyle moments without the overhead of traditional shoots</div>
-        <div class="li c"><b>Nimble photo package</b> provides polished product and lifestyle imagery at professional quality</div>
-        <div class="li c"><b>Medium campaign post</b> gives you comprehensive editing, color grading, and finishing suitable for multi-platform brand content</div>
-        <div class="p c">This combination balances <span class="strong">production quality with cost efficiency</span>—ideal for a major brand like PepsiCo that needs premium output without enterprise-level spend.</div>
-        <div class="p c">You can go with my recommendation or choose a different option below.</div>
+      <div class="sidebar">
+        <img class="logo" src="./assets/wonder-logo.png" alt="W" />
+        <div class="sic" style="top:150px"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#9a9a9a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+        <div class="sic" style="top:248px"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9a9a9a" stroke-width="1.7"/><path d="M16 16 L21 21" stroke="#9a9a9a" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+        <div class="avatar">R</div>
       </div>
 
-      <div class="chev"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9 L12 15 L18 9" stroke="#b9b9b9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="msg">
+        <div class="p">Welcome to the <b>CM Production &amp; Post Budget Builder</b>.</div>
+        <div class="p">I'll help you put together a ballpark budget in just a few questions. All figures are planning estimates, not final bids.</div>
+        <div class="p">Let's start: <b>What type of content are you producing?</b></div>
+      </div>
+
+      <div class="opts">
+        <div class="opt" id="optVideo"><span class="ret">&#8629;</span> Video</div>
+        <div class="opt"><span class="ret">&#8629;</span> Photo</div>
+        <div class="opt"><span class="ret">&#8629;</span> Both (Video + Photo)</div>
+      </div>
+
+      <div class="acts">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2.5" stroke="#6f6f6f" stroke-width="1.6"/><path d="M16 8 V6 a2 2 0 0 0-2-2 H6 a2 2 0 0 0-2 2 V14 a2 2 0 0 0 2 2 H8" stroke="#6f6f6f" stroke-width="1.6"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#6f6f6f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#6f6f6f" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 a8 8 0 0 1 13-6 M20 6 V11 H15" stroke="#6f6f6f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
 
       <div class="composer">
-        <div class="ph">Write a message...</div>
+        <div class="ptext"><span id="typed"></span><span class="caret" id="caret"></span></div>
         <div class="crow">
           <div class="ci"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round"/></svg></div>
           <div class="ci"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7 H14 M18 7 H20 M4 17 H8 M12 17 H20" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" stroke="#cfcfcf" stroke-width="1.8"/><circle cx="10" cy="17" r="2.2" stroke="#cfcfcf" stroke-width="1.8"/></svg> Tools</div>
           <div class="ci bb"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#6ea8ff" stroke-width="1.7"/><path d="M8 7 H16 M8 11 H10 M13 11 H16 M8 14 H10 M13 14 H16" stroke="#6ea8ff" stroke-width="1.5" stroke-linecap="round"/></svg> Budget Builder <span class="x">&#10005;</span></div>
           <div class="ci model"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 L13.4 9 L19 10.5 L13.4 12 L12 18 L10.6 12 L5 10.5 L10.6 9 Z" fill="#cfcfcf"/></svg> Haiku 4.5</div>
-          <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#111" stroke-width="2.6" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
+
+      <svg id="cursor" viewBox="0 0 24 24" fill="none"><path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#fff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/></svg>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Cascade all the message lines down, staggered (chrome stays static)
-      tl.from(".msg .c", {
-        opacity: 0, y: -22, duration: 0.45, ease: "power3.out", stagger: 0.16,
-      }, 0.2);
+      // Start: Video option NOT yet selected (neutral), text empty
+      gsap.set("#optVideo", { color: "#c4c4c4", borderColor: "rgba(255,255,255,0.1)", backgroundColor: "rgba(255,255,255,0.02)" });
+      gsap.set("#optVideo .ret", { color: "#6f6f6f" });
 
-      tl.from(".chev", { opacity: 0, y: -10, duration: 0.4 }, "+=0.1");
+      // 1) type the brief into the composer
+      const fullText = "I need to budget out a 30s production for a Pepsi commercial.";
+      const typed = document.getElementById("typed");
+      const proxy = { n: 0 };
+      tl.to(proxy, {
+        n: fullText.length, duration: 2.6, ease: "none",
+        onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
+        onComplete() { document.getElementById("caret").style.opacity = 1; },
+      }, 0.3);
+
+      // 2) cursor flies up to the Video option and selects it
+      const cursor = document.getElementById("cursor");
+      gsap.set(cursor, { left: 470, top: 384 });
+      tl.fromTo(cursor, { x: 600, y: 420, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 1.0, ease: "power3.out" }, 3.3);
+
+      // select Video (blue highlight)
+      tl.to("#optVideo", { color: "#6ea8ff", borderColor: "rgba(110,168,255,0.6)",
+        backgroundColor: "rgba(40,70,140,0.22)", boxShadow: "0 0 0 1px rgba(110,168,255,0.5), 0 0 30px rgba(60,110,255,0.35)",
+        duration: 0.3, ease: "power2.out" }, 4.4);
+      tl.to("#optVideo .ret", { color: "#6ea8ff", duration: 0.3 }, 4.4);
+      tl.to("#optVideo", { scale: 0.992, duration: 0.1 }, 4.4);
+      tl.to("#optVideo", { scale: 1, duration: 0.2, ease: "power2.out" }, 4.5);
 
       window.__timelines["main"] = tl;
     </script>
