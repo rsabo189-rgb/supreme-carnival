@@ -56,7 +56,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1920" data-height="1080">
 
       <div class="composer">
         <div class="ptext"><span id="typed"></span><span class="caret" id="caret"></span></div>
@@ -67,7 +67,7 @@
             <span id="pillIcon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18 H15 M10 21 H14" stroke="#6ea8ff" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3 a6 6 0 0 0-4 10.5 c0.8 0.8 1 1.4 1 2.5 H15 c0-1.1 0.2-1.7 1-2.5 A6 6 0 0 0 12 3 Z" stroke="#6ea8ff" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
             <span id="pillName">Creative Strategist</span> <span class="x">&#10005;</span>
           </div>
-          <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="send" id="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         </div>
       </div>
 
@@ -130,6 +130,15 @@
         n: fullText.length, duration: 2.6, ease: "none",
         onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
       }, 4.0);
+
+      // 7) cursor flies to the send arrow and presses it
+      tl.set(cursor, { left: 1640, top: 800 });
+      tl.to(cursor, { opacity: 1, left: 1638, top: 678, duration: 0.7, ease: "power3.out" }, 6.8);
+      // send button activates (fills blue) + press
+      tl.to("#send", { backgroundColor: "#2f80ff", duration: 0.25 }, 7.55);
+      tl.to("#send svg path", { stroke: "#ffffff", duration: 0.25 }, 7.55);
+      tl.to("#send", { scale: 0.9, duration: 0.12, ease: "power2.in" }, 7.6);
+      tl.to("#send", { scale: 1, duration: 0.22, ease: "back.out(2)" }, 7.72);
 
       window.__timelines["main"] = tl;
     </script>
