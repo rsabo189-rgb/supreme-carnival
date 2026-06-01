@@ -5,31 +5,125 @@
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="./node_modules/gsap/dist/gsap.min.js"></script>
     <style>
+      @font-face { font-family: "Playfair"; src: url("./assets/fonts/playfair-700.woff2") format("woff2"); font-weight: 700; font-display: block; }
+      @font-face { font-family: "InterV"; src: url("./assets/fonts/inter-400.woff2") format("woff2"); font-weight: 400; font-display: block; }
+      @font-face { font-family: "InterV"; src: url("./assets/fonts/inter-600.woff2") format("woff2"); font-weight: 600; font-display: block; }
+      @font-face { font-family: "InterV"; src: url("./assets/fonts/inter-700.woff2") format("woff2"); font-weight: 700; font-display: block; }
+
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0a0a0a;
+        font-family: "InterV", -apple-system, sans-serif; color: #e8e8e8; }
       #root { position: relative; width: 1920px; height: 1080px; }
-      .scene { position: absolute; inset: 0; transform-origin: 38% 58%; will-change: transform, opacity; }
-      .scene img { width: 1920px; height: 1080px; object-fit: cover; display: block; }
+
+      .col { position: absolute; left: 470px; top: 40px; width: 1180px; }
+      .lead { font-size: 30px; line-height: 1.42; color: #e8e8e8; }
+      .pill { display: inline-flex; align-items: center; gap: 18px; margin-top: 30px;
+        border: 1px solid #333; border-radius: 12px; padding: 16px 24px; font-size: 27px; color: #d8d8d8; }
+      .pill svg { width: 28px; height: 28px; }
+      .pill .meta { color: #8a8a8a; }
+      .openline { font-size: 28px; color: #cfcfcf; margin-top: 28px; }
+      .acts { display: flex; gap: 32px; margin-top: 26px; }
+      .acts svg { width: 32px; height: 32px; stroke: #7d7d7d; }
+
+      /* Artifact panel */
+      .artifact { position: absolute; left: 470px; top: 396px; width: 1180px; height: 664px;
+        background: #1a1a1a; border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+      .hero { position: absolute; left: 0; top: 0; width: 100%; height: 340px; overflow: hidden; }
+      .hero img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 38%; will-change: transform; }
+      .hero::after { content: ""; position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.0) 30%, rgba(26,26,26,0.2) 70%, #1a1a1a 100%); }
+      .htext { position: absolute; left: 46px; top: 84px; z-index: 2; }
+      .clipline { overflow: hidden; height: 110px; }
+      .headline { font-family: "Playfair", Georgia, serif; font-weight: 700; color: #fff;
+        font-size: 78px; line-height: 110px; letter-spacing: -1px; }
+      .brieflbl { font-family: "Playfair", Georgia, serif; font-size: 28px; letter-spacing: 14px; color: #e0e0e0; margin-top: 12px; }
+
+      .cols { position: absolute; left: 46px; right: 46px; top: 380px; display: flex; gap: 56px; }
+      .htext { top: 70px; }
+      .c { flex: 1; }
+      .c h4 { font-size: 20px; letter-spacing: 1.5px; color: #cfcfcf; font-weight: 700; margin-bottom: 14px; }
+      .c p { font-size: 20px; line-height: 1.44; color: #b4b4b4; }
+      .c .b { font-size: 20px; line-height: 1.38; color: #b4b4b4; padding-left: 22px; position: relative; margin-bottom: 11px; }
+      .c .b::before { content: "•"; position: absolute; left: 4px; color: #777; }
+
+      /* Bottom input bar - always visible */
+      .bar { position: absolute; left: 470px; right: 110px; bottom: 28px; height: 130px;
+        border: 1px solid #2a2a2a; border-radius: 20px; }
+      .bar .plus { position: absolute; left: 34px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; }
+      .bar .plus svg { width: 40px; height: 40px; stroke: #cfcfcf; }
+      .bar .model { position: absolute; right: 200px; top: 50%; transform: translateY(-50%); font-size: 30px; color: #d2d2d2; display: flex; align-items: center; gap: 12px; }
+      .bar .send { position: absolute; right: 36px; top: 50%; transform: translateY(-50%); width: 76px; height: 76px; border-radius: 50%; background: #ff4b1f; display: flex; align-items: center; justify-content: center; }
+      .bar .send svg { width: 34px; height: 34px; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
-      <div class="scene" id="scene">
-        <img src="./assets/brief-chat.png" alt="" />
+
+      <div class="col">
+        <div class="lead" id="lead">I've put together a first-pass brief for Pepsi Summer 2026. It leans into golden-hour energy, music, and shared moments—the feeling of a perfect summer that lives on long after the day ends.</div>
+        <div class="pill" id="pill"><svg viewBox="0 0 24 24" fill="none"><path d="M9 8 L5 12 L9 16 M15 8 L19 12 L15 16" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Pepsi Summer 2026 Brief <span class="meta">· HTML ·</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 L17 7 M9 7 H17 V15" stroke="#cfcfcf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="openline" id="openline">Open the artifact to review the full brief, including strategy, creative directions, and rollout.</div>
+        <div class="acts" id="acts">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2.5" stroke="#7d7d7d" stroke-width="1.6"/><path d="M16 8 V6 a2 2 0 0 0-2-2 H6 a2 2 0 0 0-2 2 V14 a2 2 0 0 0 2 2 H8" stroke="#7d7d7d" stroke-width="1.6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#7d7d7d" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#7d7d7d" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 9 V15 H8 L13 19 V5 L8 9 Z" stroke="#7d7d7d" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 9 a4 4 0 0 1 0 6" stroke="#7d7d7d" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 a8 8 0 0 1 13-6 M20 6 V11 H15 M20 12 a8 8 0 0 1-13 6 M4 18 V13 H9" stroke="#7d7d7d" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <div class="artifact" id="artifact">
+        <div class="hero"><img id="heroImg" src="./assets/hero-clean.png" alt="" /></div>
+        <div class="htext">
+          <div class="clipline"><div class="headline" id="h1">PEPSI</div></div>
+          <div class="clipline"><div class="headline" id="h2">SUMMER 2026</div></div>
+          <div class="brieflbl" id="h3">B R I E F</div>
+        </div>
+        <div class="cols">
+          <div class="c" id="col1"><h4>EXECUTIVE SUMMARY</h4><p>Pepsi Summer 2026 is a cultural platform celebrating the moments, music, and connections that define summer. We're owning the soundtrack to unforgettable experiences—fueling optimism, spontaneity, and the joy of being together.</p></div>
+          <div class="c" id="col2"><h4>OBJECTIVES</h4><div class="b">Drive brand love and cultural relevance with Gen Z and Millennials</div><div class="b">Increase consumption in key summer occasions</div><div class="b">Amplify music and creator partnerships to extend reach</div></div>
+          <div class="c" id="col3"><h4>KEY INSIGHTS</h4><div class="b">78% say summer is their favorite season for making memories</div><div class="b">Music is the #1 driver of mood and connection in summer</div><div class="b">People crave real moments, not staged perfection</div></div>
+        </div>
+      </div>
+
+      <div class="bar">
+        <div class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#cfcfcf" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+        <div class="model">Sonnet 4.6 <span style="opacity:.7">&#9662;</span></div>
+        <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
+      const F = 1 / 30; // seconds per frame @30fps
+      const E = "expo.out"; // ~ cubic-bezier(0.16,1,0.3,1)
 
-      // 1) quick animate-on: fade + slight scale settle
-      tl.fromTo("#scene",
-        { opacity: 0, scale: 1.04 },
-        { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, 0.1);
+      // 0-20f: bg already #0a0a0a; lead text slides up 12px + fades
+      tl.from("#lead", { opacity: 0, y: 12, duration: 20*F, ease: E }, 0);
 
-      // 2) slow continuous push-in toward the brief artifact for the rest
-      tl.to("#scene", { scale: 1.16, duration: 4.3, ease: "power1.inOut" }, 0.65);
+      // 30-45f: artifact pill slides up 20px + fades
+      tl.from("#pill", { opacity: 0, y: 20, duration: 15*F, ease: E }, 30*F);
+      // open line shortly after
+      tl.from("#openline", { opacity: 0, y: 14, duration: 14*F, ease: E }, 40*F);
+
+      // 45-60f: artifact panel slides up 30px + fades
+      tl.from("#artifact", { opacity: 0, y: 30, duration: 15*F, ease: E }, 45*F);
+      // Ken Burns on hero image over the full duration (1.06 -> 1.0 + slight left pan)
+      tl.fromTo("#heroImg", { scale: 1.06, x: 14 }, { scale: 1.0, x: -10, duration: 5 - 45*F, ease: "none" }, 45*F);
+
+      // 60-75f: headline stagger out of clip — PEPSI, then SUMMER 2026 (+6f), then BRIEF (+12f)
+      tl.from("#h1", { y: 100, duration: 15*F, ease: E }, 60*F);
+      tl.from("#h2", { y: 100, duration: 15*F, ease: E }, 66*F);
+      tl.from("#h3", { opacity: 0, y: 14, duration: 14*F, ease: E }, 72*F);
+
+      // 60-80f: action icons fade in
+      tl.from("#acts svg", { opacity: 0, y: 8, duration: 14*F, ease: E, stagger: 1.2*F }, 60*F);
+
+      // 90-115f: three columns stagger left->right, each +8f, slide up 16px + fade
+      tl.from("#col1", { opacity: 0, y: 16, duration: 16*F, ease: E }, 90*F);
+      tl.from("#col2", { opacity: 0, y: 16, duration: 16*F, ease: E }, 98*F);
+      tl.from("#col3", { opacity: 0, y: 16, duration: 16*F, ease: E }, 106*F);
 
       window.__timelines["main"] = tl;
     </script>
