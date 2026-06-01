@@ -7,73 +7,129 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body {
-        width: 1920px; height: 1080px; overflow: hidden; background: #050505;
+        width: 1920px; height: 1080px; overflow: hidden; background: #000;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
         color: #fff;
       }
       #root { position: relative; }
 
-      .msg { position: absolute; left: 456px; top: 34px; width: 1090px; }
-      .p { font-size: 26px; line-height: 1.36; color: #c9c9c9; margin-bottom: 16px; }
-      .p .w { color: #f2f2f2; font-weight: 700; }
-      .sec { font-size: 25px; font-weight: 700; letter-spacing: 0.5px; color: #f2f2f2; margin: 20px 0 9px; }
-      .li { font-size: 25px; line-height: 1.36; color: #c4c4c4; padding-left: 38px; position: relative; margin-bottom: 9px; }
-      .li::before { content: "•"; position: absolute; left: 14px; color: #888; }
-      .li b { color: #f2f2f2; font-weight: 700; }
-      .strong { color: #f2f2f2; font-weight: 700; }
-      .spacer { height: 8px; }
+      .composer { position: absolute; left: 180px; top: 360px; width: 1560px; height: 360px;
+        border-radius: 28px; background: #0a0a0b; border: 1px solid rgba(255,255,255,0.16); }
+      .ptext { position: absolute; left: 48px; top: 50px; right: 48px; font-size: 42px; color: #fff; }
+      .caret { display: inline-block; width: 3px; height: 0.9em; background: #fff;
+        vertical-align: -0.08em; margin-left: 3px; opacity: 0; animation: blink 1s steps(1,end) infinite; }
+      @keyframes blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
 
-      .acts { position: absolute; left: 456px; top: 1006px; display: flex; gap: 36px; }
-      .acts svg { width: 34px; height: 34px; stroke: #6f6f6f; }
+      .crow { position: absolute; left: 40px; right: 40px; bottom: 40px; display: flex; align-items: center; gap: 44px; }
+      .ci { display: inline-flex; align-items: center; gap: 16px; font-size: 36px; color: #cfcfcf; }
+      .ci svg { width: 36px; height: 36px; }
+      .ci.plus svg { width: 40px; height: 40px; }
+      .ci.tools { color: #d8d8d8; }
+      .pill { display: inline-flex; align-items: center; gap: 16px; font-size: 36px; color: #6ea8ff; }
+      .pill svg { width: 34px; height: 34px; }
+      .pill .x { color: #8c8c93; margin-left: 8px; font-size: 32px; }
+      .send { margin-left: auto; width: 78px; height: 78px; border-radius: 50%; background: rgba(255,255,255,0.08);
+        display: inline-flex; align-items: center; justify-content: center; }
+      .send svg { width: 34px; height: 34px; }
+
+      /* Popup menu */
+      .popup { position: absolute; left: 300px; top: 168px; width: 470px;
+        background: #1c1c1e; border: 1px solid rgba(255,255,255,0.1); border-radius: 18px;
+        padding: 14px; opacity: 0; transform-origin: 30% 100%; box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
+      .mi { display: flex; align-items: center; gap: 20px; padding: 18px 18px; border-radius: 12px;
+        font-size: 31px; color: #d2d2d2; position: relative; }
+      .mi .mic { width: 34px; height: 34px; flex: none; }
+      .mi .mic svg { width: 34px; height: 34px; stroke: #b9b9b9; }
+      .mi .ext { position: absolute; right: 18px; width: 28px; height: 28px; }
+      .mi .ext svg { width: 28px; height: 28px; stroke: #8a8a8a; }
+      .mi .beta { position: absolute; right: 70px; font-size: 21px; color: #9a9a9a;
+        border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; padding: 3px 10px; }
+      .mi .check { position: absolute; right: 18px; width: 30px; height: 30px; opacity: 0; }
+      .mi .check svg { width: 30px; height: 30px; stroke: #2f80ff; }
+      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 12px; }
+      #miCM { color: #2f80ff; }
+      #miCM .mic svg { stroke: #2f80ff; }
+      #miCS .mic svg { stroke: #b9b9b9; }
+
+      #cursor { position: absolute; left: 0; top: 0; width: 50px; height: 50px; opacity: 0;
+        pointer-events: none; filter: drop-shadow(0 3px 7px rgba(0,0,0,0.8)); }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
-      <div class="msg">
-        <div class="p c">Here's a refined brand identity for <span class="w">WONDER</span> built around a custom wordmark and icon that balance curiosity, elegance, and memorability.</div>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
 
-        <div class="sec c">OVERVIEW</div>
-        <div class="p c">The identity pairs a distinctive logotype with an adaptive icon to create a flexible system for digital, print, and beyond.</div>
-
-        <div class="sec c">WORDMARK</div>
-        <div class="li c">Custom letterforms with organic curves and subtle contrast</div>
-        <div class="li c">The "W" introduces a sense of curiosity and movement</div>
-        <div class="li c">Balanced spacing for clarity and presence</div>
-        <div class="li c"><b>Timeless, mysterious, and distinctly ownable</b></div>
-
-        <div class="sec c">ICON</div>
-        <div class="li c">A monogrammed "W" distilled from the wordmark</div>
-        <div class="li c">Bold, fluid, and instantly recognizable</div>
-        <div class="li c">Works beautifully at any size</div>
-        <div class="li c"><b>Perfect for avatars, stamps, and micro-moments</b></div>
-
-        <div class="sec c">APPLICATIONS</div>
-        <div class="li c"><b>Digital:</b> websites, apps, favicons, social</div>
-        <div class="li c"><b>Print:</b> business cards, packaging, posters</div>
-        <div class="li c"><b>Motion:</b> reveals, transitions, loading states</div>
-        <div class="li c"><b>Brand system:</b> colors, typography, and layouts can scale with this foundation</div>
-
-        <div class="p c" style="margin-top:16px">If you'd like, I can now package this into a full brand presentation with mockups, variants, and guidelines.</div>
+      <div class="composer">
+        <div class="ptext"><span id="typed"></span><span class="caret" id="caret"></span></div>
+        <div class="crow">
+          <div class="ci plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="ci tools" id="toolsBtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7 H14 M18 7 H20 M4 17 H8 M12 17 H20" stroke="#d8d8d8" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" stroke="#d8d8d8" stroke-width="1.8"/><circle cx="10" cy="17" r="2.2" stroke="#d8d8d8" stroke-width="1.8"/></svg> Tools</div>
+          <div class="pill" id="pill">
+            <span id="pillIcon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18 H15 M10 21 H14" stroke="#6ea8ff" stroke-width="1.8" stroke-linecap="round"/><path d="M12 3 a6 6 0 0 0-4 10.5 c0.8 0.8 1 1.4 1 2.5 H15 c0-1.1 0.2-1.7 1-2.5 A6 6 0 0 0 12 3 Z" stroke="#6ea8ff" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+            <span id="pillName">Creative Strategist</span> <span class="x">&#10005;</span>
+          </div>
+          <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#cfcfcf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
       </div>
 
-      <div class="acts">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#6f6f6f" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#6f6f6f" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 a8 8 0 0 1 13-6 M20 6 V11 H15 M20 12 a8 8 0 0 1-13 6 M4 18 V13 H9" stroke="#6f6f6f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="popup" id="popup">
+        <div class="mi"><span class="mic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5 C7 4 10 4 12 6 C14 4 17 4 20 5 V18 C17 17 14 17 12 19 C10 17 7 17 4 18 Z" stroke="#b9b9b9" stroke-width="1.6" stroke-linejoin="round"/></svg></span> Learn <span class="ext"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 L17 7 M9 7 H17 V15" stroke="#8a8a8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="mi"><span class="mic"><svg viewBox="0 0 24 24" fill="none"><path d="M15 4 a4 4 0 0 0-5 5 L4 15 L9 20 L15 14 a4 4 0 0 0 5-5 L17 12 L14 9 Z" stroke="#b9b9b9" stroke-width="1.6" stroke-linejoin="round"/></svg></span> Workshop <span class="beta">BETA</span> <span class="ext"><svg viewBox="0 0 24 24" fill="none"><path d="M7 17 L17 7 M9 7 H17 V15" stroke="#8a8a8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="divider"></div>
+        <div class="mi"><span class="mic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#b9b9b9" stroke-width="1.6"/><path d="M8 7 H16 M8 11 H10 M13 11 H16 M8 15 H10 M13 15 H16" stroke="#b9b9b9" stroke-width="1.4" stroke-linecap="round"/></svg></span> Budget Builder <span class="ext"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12 H19 M13 6 L19 12 L13 18" stroke="#8a8a8a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="mi" id="miCS"><span class="mic"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18 H15 M10 21 H14" stroke="#b9b9b9" stroke-width="1.6" stroke-linecap="round"/><path d="M12 3 a6 6 0 0 0-4 10.5 c0.8 0.8 1 1.4 1 2.5 H15 c0-1.1 0.2-1.7 1-2.5 A6 6 0 0 0 12 3 Z" stroke="#b9b9b9" stroke-width="1.6" stroke-linejoin="round"/></svg></span> Creative Strategist <span class="check" id="checkCS"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12 L10 17 L19 7" stroke="#2f80ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+        <div class="mi" id="miCM"><span class="mic"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4 a3 3 0 0 0-3 3 a3 3 0 0 0-1 5 a3 3 0 0 0 2 4 a2.5 2.5 0 0 0 3 2 V4 Z" stroke="#2f80ff" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 4 a3 3 0 0 1 3 3 a3 3 0 0 1 1 5 a3 3 0 0 1-2 4 a2.5 2.5 0 0 1-3 2 V4 Z" stroke="#2f80ff" stroke-width="1.6" stroke-linejoin="round"/></svg></span> CM Brain <span class="check" id="checkCM" style="opacity:1"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12 L10 17 L19 7" stroke="#2f80ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
       </div>
+
+      <svg id="cursor" viewBox="0 0 24 24" fill="none"><path d="M5 3 L5 19 L9.2 15 L12 21 L14.5 19.8 L11.8 14 L17.5 14 Z" fill="#fff" stroke="#0a0a0a" stroke-width="1.1" stroke-linejoin="round"/></svg>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
 
-      // Cascade every line down with a rise + soft blur, staggered
-      tl.from(".msg .c", {
-        opacity: 0, y: -22, filter: "blur(5px)",
-        duration: 0.45, ease: "power3.out", stagger: 0.14,
-      }, 0.2);
+      // Start state: composer pill EMPTY (no model yet), CM Brain checked in menu
+      gsap.set("#pill", { opacity: 0 });
 
-      tl.from(".acts svg", { opacity: 0, y: 8, duration: 0.4, stagger: 0.06 }, "-=0.2");
+      const cursor = document.getElementById("cursor");
+      gsap.set(cursor, { left: 360, top: 660 });
+
+      // 1) cursor comes in to Tools
+      tl.fromTo(cursor, { x: 500, y: 260, opacity: 0 },
+        { x: 0, y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, 0.2);
+
+      // 2) popup opens
+      tl.fromTo("#popup", { opacity: 0, y: 20, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, 1.2);
+
+      // 3) cursor moves up to Creative Strategist
+      tl.to(cursor, { left: 470, top: 500, duration: 0.7, ease: "power3.inOut" }, 1.7);
+
+      // 4) select Creative Strategist: check moves from CM Brain -> CS, CS turns blue, CM goes gray
+      tl.to("#checkCM", { opacity: 0, duration: 0.2 }, 2.5);
+      tl.to("#checkCS", { opacity: 1, duration: 0.2 }, 2.55);
+      tl.to("#miCS", { color: "#2f80ff", duration: 0.2 }, 2.5);
+      tl.to("#miCS .mic svg", { stroke: "#2f80ff", duration: 0.2 }, 2.5);
+      tl.to("#miCM", { color: "#d2d2d2", duration: 0.2 }, 2.5);
+      tl.to("#miCM .mic svg", { stroke: "#b9b9b9", duration: 0.2 }, 2.5);
+      // brief highlight flash on the CS row
+      tl.fromTo("#miCS", { backgroundColor: "rgba(47,128,255,0)" },
+        { backgroundColor: "rgba(47,128,255,0.12)", duration: 0.15, yoyo: true, repeat: 1 }, 2.5);
+
+      // 5) popup closes, pill shows Creative Strategist
+      tl.to("#popup", { opacity: 0, y: 14, scale: 0.97, duration: 0.3, ease: "power2.in" }, 3.0);
+      tl.to("#pill", { opacity: 1, duration: 0.3 }, 3.2);
+      // move cursor down out of the way
+      tl.to(cursor, { left: 1300, top: 760, opacity: 0, duration: 0.6, ease: "power2.in" }, 3.3);
+
+      // 6) type in the chat box
+      const fullText = "Just got this brief. Need to think it through, let's get sharp.";
+      const typed = document.getElementById("typed");
+      const proxy = { n: 0 };
+      tl.set("#caret", { opacity: 1 }, 3.9);
+      tl.to(proxy, {
+        n: fullText.length, duration: 2.6, ease: "none",
+        onUpdate() { typed.textContent = fullText.slice(0, Math.round(proxy.n)); },
+      }, 4.0);
 
       window.__timelines["main"] = tl;
     </script>
