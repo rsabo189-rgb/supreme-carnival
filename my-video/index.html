@@ -11,135 +11,232 @@
       @font-face { font-family: "InterV"; src: url("./assets/fonts/inter-700.woff2") format("woff2"); font-weight: 700; font-display: block; }
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0c0c0c;
-        font-family: "InterV", -apple-system, sans-serif; color: #e0e0e0; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0e0e10;
+        font-family: "InterV", -apple-system, sans-serif; color: #d8d8d8; }
       #root { position: relative; width: 1920px; height: 1080px; }
 
-      /* Dim side panels at 0.3 */
-      .lpanel { position: absolute; left: 0; top: 0; width: 300px; height: 1080px;
-        background: #131313; border-right: 1px solid #1e1e1e; opacity: 0; filter: blur(1px); }
-      .rpanel { position: absolute; right: 0; top: 70px; width: 360px; height: 940px;
-        background: #131313; border-left: 1px solid #1e1e1e; border-radius: 14px 0 0 14px; opacity: 0; }
+      /* ── Full-bleed background image ── */
+      .bg-img {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        object-fit: cover; object-position: 60% 15%;
+        filter: brightness(0.55) saturate(0.7);
+        will-change: transform;
+      }
 
-      .col { position: absolute; left: 360px; top: 44px; width: 1080px; }
-      .lead { font-family: "InterV"; font-size: 26px; line-height: 1.65; color: #e0e0e0; }
-      .pill { display: inline-flex; align-items: center; gap: 16px; margin-top: 28px;
-        background: #1c1c1c; border: 1px solid #2e2e2e; border-radius: 12px; padding: 15px 24px; font-size: 26px; color: #d8d8d8; }
-      .pill svg { width: 26px; height: 26px; }
-      .pill .meta { color: #888; }
-      .openline { font-size: 26px; color: #888; margin-top: 26px; }
-      .acts { display: flex; gap: 32px; margin-top: 24px; }
-      .acts svg { width: 30px; height: 30px; stroke: #555; }
+      /* ── Dark gradient overlays ── */
+      .grad-left {
+        position: absolute; inset: 0;
+        background: linear-gradient(to right, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.3) 45%, rgba(10,10,12,0) 70%);
+        pointer-events: none;
+      }
+      .grad-bottom {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.4) 40%, transparent 65%);
+        pointer-events: none;
+      }
 
-      /* Artifact card */
-      .artifact { position: absolute; left: 360px; top: 388px; width: 1180px; height: 580px;
-        background: #161616; border: 1px solid #2a2a2a; border-radius: 10px; overflow: hidden; }
-      .hero { position: absolute; left: 0; top: 0; width: 100%; height: 300px; overflow: hidden; }
-      .hero img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 38%; will-change: transform; }
-      .hero .vgrad { position: absolute; inset: 0;
-        background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 55%); }
-      .hero .bgrad { position: absolute; inset: 0;
-        background: linear-gradient(180deg, rgba(22,22,22,0) 55%, rgba(22,22,22,0.5) 80%, #161616 100%); }
-      .htext { position: absolute; left: 48px; top: 44px; z-index: 2; }
-      .clipline { overflow: hidden; height: 92px; }
-      .headline { font-family: "Playfair", Georgia, serif; font-weight: 700; color: #fff;
-        font-size: 70px; line-height: 92px; letter-spacing: -1px; }
-      .brieflbl { font-family: "Playfair", Georgia, serif; font-size: 25px; letter-spacing: 6px; color: rgba(255,255,255,0.8); margin-top: 8px; }
+      /* ── NAV ── */
+      .nav {
+        position: absolute; top: 0; left: 0; right: 0; height: 72px;
+        display: flex; align-items: center; padding: 0 60px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        z-index: 10;
+      }
+      .nav-logo {
+        font-family: "InterV", sans-serif; font-weight: 700;
+        font-size: 22px; letter-spacing: 6px; color: #fff; text-transform: uppercase;
+        flex: 0 0 auto;
+      }
+      .nav-links {
+        flex: 1; display: flex; justify-content: center; gap: 64px;
+      }
+      .nav-links span {
+        font-size: 13px; letter-spacing: 3px; color: rgba(255,255,255,0.55);
+        text-transform: uppercase; font-weight: 500;
+      }
+      .nav-contact {
+        font-size: 13px; letter-spacing: 2px; color: rgba(255,255,255,0.45);
+        text-transform: uppercase;
+      }
 
-      .cols { position: absolute; left: 48px; right: 48px; top: 314px; display: flex; }
-      .c { flex: 1; padding: 0 36px; position: relative; }
-      .c:first-child { padding-left: 0; }
-      .c + .c::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 1px; background: rgba(255,255,255,0.12); }
-      .c h4 { font-size: 19px; letter-spacing: 1.5px; color: #cfcfcf; font-weight: 700; margin-bottom: 12px; }
-      .c p { font-size: 19px; line-height: 1.42; color: #b0b0b0; }
-      .c .b { font-size: 19px; line-height: 1.36; color: #b0b0b0; padding-left: 22px; position: relative; margin-bottom: 10px; }
-      .c .b::before { content: "•"; position: absolute; left: 4px; color: #777; }
+      /* ── TOP LEFT label block ── */
+      .label-block {
+        position: absolute; top: 110px; left: 60px; z-index: 10;
+      }
+      .label-tag {
+        font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.35);
+        text-transform: uppercase; margin-bottom: 10px;
+        display: flex; align-items: center; gap: 12px;
+      }
+      .label-tag::before {
+        content: "(X)"; font-size: 11px; color: rgba(255,255,255,0.25);
+      }
+      .label-studio {
+        font-size: 13px; letter-spacing: 5px; color: rgba(255,255,255,0.5);
+        text-transform: uppercase; margin-bottom: 18px;
+      }
+      .label-desc {
+        font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.55);
+        max-width: 280px;
+      }
 
-      /* Input bar - always visible */
-      .bar { position: absolute; left: 360px; right: 110px; bottom: 26px; height: 128px;
-        background: #111; border: 1px solid #222; border-top: 1px solid #222; border-radius: 18px; }
-      .bar .plus { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); width: 56px; height: 56px;
-        border-radius: 50%; border: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: center; }
-      .bar .plus svg { width: 32px; height: 32px; stroke: #cfcfcf; }
-      .bar .model { position: absolute; right: 200px; top: 50%; transform: translateY(-50%); font-size: 30px; color: #888; display: flex; align-items: center; gap: 12px; }
-      .bar .send { position: absolute; right: 34px; top: 50%; transform: translateY(-50%); width: 74px; height: 74px; border-radius: 50%; background: #f04e1f; display: flex; align-items: center; justify-content: center; }
-      .bar .send svg { width: 34px; height: 34px; }
+      /* ── TOP RIGHT serif headline ── */
+      .serif-headline {
+        position: absolute; top: 96px; right: 60px; z-index: 10;
+        text-align: right;
+      }
+      .serif-headline .line {
+        font-family: "Playfair", Georgia, serif; font-weight: 700;
+        font-size: 96px; line-height: 1.2; letter-spacing: -1px;
+        color: rgba(255,255,255,0.88);
+        display: block; height: 132px; padding: 7px 0;
+      }
+      .serif-headline .line span { display: inline-block; }
+
+      /* ── MASSIVE bottom word ── */
+      .mega-word {
+        position: absolute; bottom: 40px; left: -30px;
+        z-index: 10;
+        font-family: "InterV", sans-serif; font-weight: 700;
+        font-size: 310px; line-height: 1; letter-spacing: -8px;
+        color: #5de3f7;
+        text-transform: uppercase;
+        white-space: nowrap;
+        width: 1980px;
+        height: 415px;
+        padding-top: 35px;
+        overflow: hidden;
+      }
+
+      /* ── Bottom content strip ── */
+      .bottom-strip {
+        position: absolute; bottom: 36px; left: 60px; right: 60px;
+        z-index: 20; display: flex; align-items: flex-end; gap: 0;
+      }
+
+      /* Thumbnails */
+      .thumbs {
+        display: flex; gap: 12px; flex: 0 0 auto; margin-right: 80px;
+      }
+      .thumb {
+        width: 76px; height: 76px; border-radius: 8px; overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.05);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .thumb span {
+        font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,0.3);
+        text-transform: uppercase; text-align: center; line-height: 1.4;
+      }
+
+      /* Content columns */
+      .bottom-cols {
+        flex: 1; display: flex; gap: 0; margin-left: auto;
+      }
+      .bcol {
+        flex: 1; padding: 0 48px; position: relative;
+      }
+      .bcol + .bcol::before {
+        content: ""; position: absolute; left: 0; top: 4px; bottom: 4px;
+        width: 1px; background: rgba(255,255,255,0.1);
+      }
+      .bcol .blabel {
+        font-size: 10px; letter-spacing: 4px; color: rgba(255,255,255,0.35);
+        text-transform: uppercase; margin-bottom: 10px;
+      }
+      .bcol p {
+        font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.5);
+        max-width: 320px;
+      }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="5" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6" data-width="1920" data-height="1080">
 
-      <div class="lpanel" id="lpanel"></div>
-      <div class="rpanel" id="rpanel"></div>
+      <!-- Background -->
+      <img id="bgImg" class="bg-img"
+        src="./assets/hero-portrait.png"
+        alt="" />
 
-      <div class="col">
-        <div class="lead" id="lead">I've put together a first-pass brief for Pepsi Summer 2026. It leans into golden-hour energy, music, and shared moments—the feeling of a perfect summer that lives on long after the day ends.</div>
-        <div class="pill" id="pill"><svg viewBox="0 0 24 24" fill="none"><path d="M9 8 L5 12 L9 16 M15 8 L19 12 L15 16" stroke="#cfcfcf" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Pepsi Summer 2026 Brief <span class="meta">· HTML ·</span> <svg viewBox="0 0 24 24" fill="none"><path d="M7 17 L17 7 M9 7 H17 V15" stroke="#cfcfcf" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="openline" id="openline">Open the artifact to review the full brief, including strategy, creative directions, and rollout.</div>
-        <div class="acts" id="acts">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="12" height="12" rx="2.5" stroke="#555" stroke-width="1.6"/><path d="M16 8 V6 a2 2 0 0 0-2-2 H6 a2 2 0 0 0-2 2 V14 a2 2 0 0 0 2 2 H8" stroke="#555" stroke-width="1.6"/></svg>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M7 10 V20 H5 V10 Z M7 10 L11 3 a2 2 0 0 1 2 2 V8 H18 a1.5 1.5 0 0 1 1.5 2 L18 19 a1.5 1.5 0 0 1-1.5 1 H7" stroke="#555" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M17 14 V4 H19 V14 Z M17 14 L13 21 a2 2 0 0 1-2-2 V16 H6 a1.5 1.5 0 0 1-1.5-2 L6 5 a1.5 1.5 0 0 1 1.5-1 H17" stroke="#555" stroke-width="1.6" stroke-linejoin="round"/></svg>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 9 V15 H8 L13 19 V5 L8 9 Z" stroke="#555" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 9 a4 4 0 0 1 0 6" stroke="#555" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12 a8 8 0 0 1 13-6 M20 6 V11 H15 M20 12 a8 8 0 0 1-13 6 M4 18 V13 H9" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="grad-left"></div>
+      <div class="grad-bottom"></div>
+
+      <!-- Nav -->
+      <nav class="nav" id="nav">
+        <div class="nav-logo">CXZ Studio</div>
+        <div class="nav-links">
+          <span>Work</span>
+          <span>Method</span>
+          <span>Studios</span>
+          <span>Get In Touch</span>
+        </div>
+        <div class="nav-contact">hello@cxzstudio.ai</div>
+      </nav>
+
+      <!-- Top-left label -->
+      <div class="label-block" id="labelBlock">
+        <div class="label-tag">AI CONTENT</div>
+        <div class="label-studio">The Studio</div>
+        <div class="label-desc">Intelligent content for brands, filmmakers &amp; creators who move culture forward.</div>
+      </div>
+
+      <!-- Top-right serif headline -->
+      <div class="serif-headline" id="serifHead">
+        <div class="line"><span id="s1">CONTENT</span></div>
+        <div class="line"><span id="s2">OVER</span></div>
+        <div class="line"><span id="s3">NOISE</span></div>
+      </div>
+
+      <!-- Massive bottom word -->
+      <div class="mega-word" id="megaWord">CREATE</div>
+
+      <!-- Bottom strip -->
+      <div class="bottom-strip" id="bottomStrip">
+        <div class="thumbs">
+          <div class="thumb"><span>Mar&shy;ket&shy;ing</span></div>
+          <div class="thumb"><span>Brand</span></div>
+          <div class="thumb"><span>UGC</span></div>
+          <div class="thumb"><span>Film</span></div>
+        </div>
+        <div class="bottom-cols">
+          <div class="bcol" id="bc1">
+            <div class="blabel">The Work</div>
+            <p>From brand films to social-first campaigns, we deploy AI-native production pipelines that cut time-to-market without cutting quality.</p>
+          </div>
+          <div class="bcol" id="bc2">
+            <div class="blabel">Who It's For</div>
+            <p>Marketing teams, independent producers, emerging brands, filmmakers, and UGC creators ready to scale their output with AI at the core.</p>
+          </div>
         </div>
       </div>
 
-      <div class="artifact" id="artifact">
-        <div class="hero"><img id="heroImg" src="./assets/hero-clean.png" alt="" /><div class="vgrad"></div><div class="bgrad"></div></div>
-        <div class="htext">
-          <div class="clipline"><div class="headline" id="h1">PEPSI</div></div>
-          <div class="clipline"><div class="headline" id="h2">SUMMER 2026</div></div>
-          <div class="brieflbl" id="h3">B R I E F</div>
-        </div>
-        <div class="cols">
-          <div class="c" id="col1"><h4>EXECUTIVE SUMMARY</h4><p>Pepsi Summer 2026 is a cultural platform celebrating the moments, music, and connections that define summer. We're owning the soundtrack to unforgettable experiences—fueling optimism, spontaneity, and the joy of being together.</p></div>
-          <div class="c" id="col2"><h4>OBJECTIVES</h4><div class="b">Drive brand love and cultural relevance with Gen Z and Millennials</div><div class="b">Increase consumption in key summer occasions</div><div class="b">Amplify music and creator partnerships to extend reach</div></div>
-          <div class="c" id="col3"><h4>KEY INSIGHTS</h4><div class="b">78% say summer is their favorite season for making memories</div><div class="b">Music is the #1 driver of mood and connection in summer</div><div class="b">People crave real moments, not staged perfection</div></div>
-        </div>
-      </div>
-
-      <div class="bar">
-        <div class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5 V19 M5 12 H19" stroke="#cfcfcf" stroke-width="1.9" stroke-linecap="round"/></svg></div>
-        <div class="model">Sonnet 4.6 <span style="opacity:.7">&#9662;</span></div>
-        <div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19 V5" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M6 11 L12 5 L18 11" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
     </div>
 
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
       const F = 1 / 30;
-      const E = "expo.out"; // ~ cubic-bezier(0.16,1,0.3,1)
+      const E = "expo.out";
 
-      // 0-15f: side panels fade to 0.3
-      tl.to("#lpanel", { opacity: 0.3, duration: 15*F, ease: E }, 0);
-      tl.to("#rpanel", { opacity: 0.3, duration: 15*F, ease: E }, 0);
+      // Ken Burns on bg
+      tl.fromTo("#bgImg", { scale: 1.06, x: 20 }, { scale: 1.0, x: 0, duration: 6, ease: "none" }, 0);
 
-      // 0-25f: chat message fade in + slide up 10px
-      tl.from("#lead", { opacity: 0, y: 10, duration: 25*F, ease: E }, 0);
+      // Nav slides down
+      tl.from("#nav", { opacity: 0, y: -20, duration: 20*F, ease: E }, 5*F);
 
-      // 25-40f: artifact pill slides up 16px + fades; subtext after
-      tl.from("#pill", { opacity: 0, y: 16, duration: 15*F, ease: E }, 25*F);
-      tl.from("#openline", { opacity: 0, y: 12, duration: 14*F, ease: E }, 34*F);
+      // Label block
+      tl.from("#labelBlock", { opacity: 0, y: 14, duration: 22*F, ease: E }, 10*F);
 
-      // 38-50f: action icons L->R, 3f stagger
-      tl.from("#acts svg", { opacity: 0, duration: 12*F, ease: E, stagger: 3*F }, 38*F);
+      // Serif headline lines stagger up
+      tl.from("#s1", { opacity: 0, y: 18, duration: 22*F, ease: E }, 15*F);
+      tl.from("#s2", { opacity: 0, y: 18, duration: 22*F, ease: E }, 22*F);
+      tl.from("#s3", { opacity: 0, y: 18, duration: 22*F, ease: E }, 29*F);
 
-      // 48-68f: artifact card slides up 24px + fades
-      tl.from("#artifact", { opacity: 0, y: 24, duration: 20*F, ease: E }, 48*F);
-      // 60-80f+: Ken Burns hero 1.08->1.0, pan left -15->0, over remaining duration
-      tl.fromTo("#heroImg", { scale: 1.08, x: -15 }, { scale: 1.0, x: 0, duration: 5 - 60*F, ease: "none" }, 60*F);
+      // Mega word slams up from below
+      tl.from("#megaWord", { y: 340, opacity: 0, duration: 28*F, ease: E }, 30*F);
 
-      // 72-90f: PEPSI clip reveal from 32px below; SUMMER 2026 +8f; BRIEF +14f
-      tl.from("#h1", { y: 100, duration: 18*F, ease: E }, 72*F);
-      tl.from("#h2", { y: 100, duration: 18*F, ease: E }, 80*F);
-      tl.from("#h3", { opacity: 0, y: 14, duration: 14*F, ease: E }, 86*F);
-
-      // 90-130f: three columns stagger, each +10f, slide up 14px + fade
-      tl.from("#col1", { opacity: 0, y: 14, duration: 16*F, ease: E }, 90*F);
-      tl.from("#col2", { opacity: 0, y: 14, duration: 16*F, ease: E }, 100*F);
-      tl.from("#col3", { opacity: 0, y: 14, duration: 16*F, ease: E }, 110*F);
+      // Bottom strip fades in
+      tl.from("#bottomStrip", { opacity: 0, y: 20, duration: 22*F, ease: E }, 50*F);
 
       window.__timelines["main"] = tl;
     </script>
